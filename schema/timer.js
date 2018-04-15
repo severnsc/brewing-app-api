@@ -5,7 +5,8 @@ const Timer = `
     duration: Int!
     remainingDuration: Int!
     intervalDuration: Int!
-    isRunning: Boolean!
+    isRunning: Boolean!,
+    timerAlerts: [TimerAlert]!
   }
 `
 

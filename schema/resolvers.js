@@ -2,6 +2,7 @@ import {
   getUser,
   getTimersByUserId,
   getInventoriesByUserId,
+  getTimerAlertsByTimerId,
   getTimer,
   getInventory
 } from '../compose'
@@ -24,7 +25,8 @@ export default {
     duration: timer => timer.duration,
     remainingDuration: timer => timer.remainingDuration,
     intervalDuration: timer => timer.intervalDuration,
-    isRunning: timer => timer.isRunning
+    isRunning: timer => timer.isRunning,
+    timerAlerts: timer => getTimerAlertsByTimerId(timer.id)
   },
 
   Inventory: {
