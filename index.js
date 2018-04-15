@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
+import express from 'express'
+import bodyParser from 'body-parser'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+import schema from './schema/schema.js'
 
 const app = express()
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({}))
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }))
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
