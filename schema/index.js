@@ -16,9 +16,19 @@ const RootQuery = `
   }
 `
 
+const Mutation = `
+  type Mutation {
+    createUser(userName: String!, password: String!): User
+    updateUser(id: String!, userName: String, password: String): User
+    authenticateUser(id: String!, password: String!): User
+    deleteUser(id: String!): User
+  }
+`
+
 const SchemaDefinition = `
   schema {
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation
   }
 `
 
@@ -26,6 +36,7 @@ export default makeExecutableSchema({
   typeDefs: [
     SchemaDefinition,
     RootQuery,
+    Mutation,
     Inventory,
     InventoryItem,
     Timer,

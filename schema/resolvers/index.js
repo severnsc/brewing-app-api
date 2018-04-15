@@ -4,6 +4,7 @@ import Timer from './timer'
 import Inventory from './inventory'
 import TimerAlert from './timerAlert'
 import InventoryItem from './inventoryItem'
+import Mutation from './mutation'
 
 export default {
   RootQuery,
@@ -11,5 +12,6 @@ export default {
   Timer,
   Inventory,
   TimerAlert,
-  InventoryItem
+  InventoryItem,
+  Mutation
 }
