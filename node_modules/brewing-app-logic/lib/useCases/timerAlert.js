@@ -28,13 +28,13 @@ const getTimerAlert = findTimerAlertById => {
     throw new TypeError
   }
 
-  return timerAlertId => {
+  return id => {
 
-    if(typeof timerAlertId !== 'string'){
+    if(typeof id !== 'string'){
       throw new TypeError
     }
 
-    const timerAlert = findTimerAlertById(timerAlertId)
+    const timerAlert = findTimerAlertById(id)
     return timerAlert
   }
 }
@@ -72,45 +72,45 @@ const getTimerAlertsByTimerId = timerExists => {
   }
 }
 
-const updateTimerAlert = getTimerAlertById => {
+const updateTimerAlert = findTimerAlertById => {
   return saveTimerAlert => {
-    return (timerAlertId, propUpdateObj) => {
+    return (id, updatePropsObject) => {
 
       if(typeof saveTimerAlert !== 'function'){
         throw new TypeError('saveTimerAlert', 'function', saveTimerAlert)
       }
 
-      if(typeof timerAlertId !== 'string'){
-        throw new TypeError(utils.constructErrorMessage("timerAlertId", "string", timerAlertId))
+      if(typeof id !== 'string'){
+        throw new TypeError(utils.constructErrorMessage("id", "string", id))
       }
 
-      if(typeof propUpdateObj !== 'object'){
-        throw new TypeError(utils.constructErrorMessage("propUpdateObj", "object", propUpdateObj))
-      }else if(propUpdateObj instanceof Array){
-        throw new TypeError(utils.constructErrorMessage("propUpdateObj", "object", propUpdateObj))
+      if(typeof updatePropsObject !== 'object'){
+        throw new TypeError(utils.constructErrorMessage("updatePropsObject", "object", updatePropsObject))
+      }else if(updatePropsObject instanceof Array){
+        throw new TypeError(utils.constructErrorMessage("updatePropsObject", "object", updatePropsObject))
       }
 
-      if(propUpdateObj.id || propUpdateObj.activated){
+      if(updatePropsObject.id || updatePropsObject.activated){
         throw new Error('Cannot edit properties id or activated directly!')
       }
 
-      const timerAlert = getTimerAlertById(timerAlertId)
+      const timerAlert = findTimerAlertById(id)
 
       const timerAlertKeys = Object.keys(timerAlert)
-      const propUpdateObjKeys = Object.keys(propUpdateObj)
+      const updatePropsObjectKeys = Object.keys(updatePropsObject)
       const findPropUpdateKey = key => timerAlertKeys.find(tKey => tKey === key)
 
-      if(!propUpdateObjKeys.every(findPropUpdateKey)){
+      if(!updatePropsObjectKeys.every(findPropUpdateKey)){
         throw new Error('Updated properties must already exist on the timerAlert!')
       }
 
-      propUpdateObjKeys.forEach(key => {
-        if(typeof propUpdateObj[key] !== typeof timerAlert[key]){
-          throw new TypeError(`propUpdateObj values must be of same type as matching key/values on timerAlert. Expected propUpdateObj[${key}] to be of type ${typeof timerAlert[key]} but got ${typeof propUpdateObj[key]}`)
+      updatePropsObjectKeys.forEach(key => {
+        if(typeof updatePropsObject[key] !== typeof timerAlert[key]){
+          throw new TypeError(`updatePropsObject values must be of same type as matching key/values on timerAlert. Expected updatePropsObject[${key}] to be of type ${typeof timerAlert[key]} but got ${typeof updatePropsObject[key]}`)
         }
       })
 
-      const updatedTimerAlert = Object.assign({}, timerAlert, propUpdateObj)
+      const updatedTimerAlert = Object.assign({}, timerAlert, updatePropsObject)
      
       try {
         saveTimerAlert(updatedTimerAlert)
@@ -123,16 +123,16 @@ const updateTimerAlert = getTimerAlertById => {
   }
 }
 
-const activateTimerAlert = getTimerAlertById => {
+const activateTimerAlert = findTimerAlertById => {
   return saveTimerAlert => {
     return sendMessage => {
-      return timerAlertId => {
+      return id => {
 
-        if(typeof timerAlertId !== 'string'){
-          throw new TypeError(utils.constructErrorMessage('timerAlertId', 'string', timerAlertId))
+        if(typeof id !== 'string'){
+          throw new TypeError(utils.constructErrorMessage('id', 'string', id))
         }
 
-        const timerAlert = getTimerAlertById(timerAlertId)
+        const timerAlert = findTimerAlertById(id)
         const activatedTimerAlert = Object.assign({}, timerAlert, {activated: true})
         
         try {
@@ -153,17 +153,17 @@ const activateTimerAlert = getTimerAlertById => {
   }
 }
 
-const deleteTimerAlert = deleteFunc => {
-  return timerAlertId => {
+const deleteTimerAlert = _deleteTimerAlert => {
+  return id => {
 
-    if(typeof timerAlertId !== 'string'){
-      throw new TypeError(utils.constructErrorMessage('timerAlertId', 'string', timerAlertId))
+    if(typeof id !== 'string'){
+      throw new TypeError(utils.constructErrorMessage('id', 'string', id))
     }
 
     try{
-      deleteFunc(timerAlertId)
+      _deleteTimerAlert(id)
     } catch(e){
-      throw new Error("deleteFunc failed!")
+      throw new Error("_deleteTimerAlert failed!")
     }  
   }
 }

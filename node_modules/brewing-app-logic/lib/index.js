@@ -8,6 +8,7 @@ const startTimerUseCase = useCases.timerUseCases.startTimer
 const stopTimerUseCase = useCases.timerUseCases.stopTimer
 const decrementTimerUseCase = useCases.timerUseCases.decrementTimer
 const resetTimerUseCase = useCases.timerUseCases.resetTimer
+const deleteTimerUseCase = useCases.timerUseCases.deleteTimer
 const createTimerAlertUseCase = useCases.timerAlertUseCases.createTimerAlert
 const getTimerAlertUseCase = useCases.timerAlertUseCases.getTimerAlert
 const getTimerAlertsByTimerIdUseCase = useCases.timerAlertUseCases.getTimerAlertsByTimerId
@@ -42,6 +43,7 @@ module.exports = {
   stopTimerUseCase,
   decrementTimerUseCase,
   resetTimerUseCase,
+  deleteTimerUseCase,
   createTimerAlertUseCase,
   getTimerAlertUseCase,
   getTimerAlertsByTimerIdUseCase,

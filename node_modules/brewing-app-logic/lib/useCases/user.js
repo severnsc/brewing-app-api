@@ -42,14 +42,14 @@ const getUser = findUserById => {
     throw new TypeError
   }
 
-  return userId => {
+  return id => {
 
-    if(typeof userId !== 'string'){
+    if(typeof id !== 'string'){
       throw new TypeError
     }
 
     try{
-      const user = findUserById(userId)
+      const user = findUserById(id)
       return user
     } catch(e) {
       throw new Error
@@ -69,10 +69,10 @@ const updateUser = findUserById => {
       throw new TypeError(utils.constructErrorMessage('saveUser', 'function', saveUser))
     }
 
-    return (userId, updatePropsObj) => {
+    return (id, updatePropsObj) => {
 
-      if(typeof userId !== 'string'){
-        throw new TypeError(utils.constructErrorMessage('userId', 'string', userId))
+      if(typeof id !== 'string'){
+        throw new TypeError(utils.constructErrorMessage('id', 'string', id))
       }
 
       if(typeof updatePropsObj !== 'object'){
@@ -85,7 +85,7 @@ const updateUser = findUserById => {
         throw new Error("Cannot directly edit user Id!")
       }
 
-      const user = findUserById(userId)
+      const user = findUserById(id)
 
       const userProps = Object.keys(user)
       const updatePropsObjKeys = Object.keys(updatePropsObj)
@@ -113,9 +113,9 @@ const authenticateUser = findUserById => {
   }
 
   return hashPassword => {
-    return (userId, password) => {
+    return (id, password) => {
 
-      if(typeof userId !== 'string'){
+      if(typeof id !== 'string'){
         throw new TypeError
       }
 
@@ -123,7 +123,7 @@ const authenticateUser = findUserById => {
         throw new TypeError
       }
 
-      const user = findUserById(userId)
+      const user = findUserById(id)
       const hashedPassword = hashPassword(password)
       if(hashedPassword === user.hashedPassword){
         return user
@@ -134,15 +134,15 @@ const authenticateUser = findUserById => {
   }
 }
 
-const deleteUser = deleteUserFunc => {
-  return userId => {
+const deleteUser = _deleteUser => {
+  return id => {
 
-    if(typeof userId !== 'string'){
+    if(typeof id !== 'string'){
       throw new TypeError
     }
 
     try{
-      deleteUserFunc(userId)
+      _deleteUser(id)
       return null
     } catch(e) {
       throw new Error("deleteUser failed!")
