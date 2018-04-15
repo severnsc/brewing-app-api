@@ -4,15 +4,11 @@ import InventoryItem from './inventoryItem'
 import Timer from './timer'
 import TimerAlert from './timerAlert'
 import User from './user'
+import resolvers from './resolvers'
 
 const RootQuery = `
   type RootQuery {
     user(id: String!): User
-    users: [User]
-    inventory(id: String!): Inventory
-    inventories: [Inventory]
-    timer(id: String!): Timer
-    timers: [Timer]
   }
 `
 
@@ -32,5 +28,5 @@ export default makeExecutableSchema({
     TimerAlert,
     User
   ],
-  resolvers: {}
+  resolvers
 })
