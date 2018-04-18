@@ -20,7 +20,7 @@ const Mutation = `
   type Mutation {
     createUser(userName: String!, password: String!): User
     updateUser(id: String!, userName: String, password: String): User
-    authenticateUser(id: String!, password: String!): User
+    authenticateUser(userName: String!, password: String!): User
     deleteUser(id: String!): User
   }
 `

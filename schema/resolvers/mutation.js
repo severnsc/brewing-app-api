@@ -29,8 +29,8 @@ export default {
     return updatedUser
   },
 
-  authenticateUser: (_, { id, password }) => {
-    const authenticatedUser = authenticateUser(id, password)
+  authenticateUser: (_, { userName, password }) => {
+    const authenticatedUser = authenticateUser(userName, password)
     return authenticatedUser
   },
 
