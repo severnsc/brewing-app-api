@@ -2,7 +2,13 @@ import * as core from "brewing-app-logic"
 
 import {
   findUserById,
-  userExists
+  findUserByUsername,
+  userExists,
+  saveUser,
+  isUsernameUnique,
+  _createUser,
+  _deleteUser,
+  hashPassword
 } from './adapters/userAdapter'
 
 import {
@@ -19,6 +25,10 @@ import {
 import { findTimerAlertsByTimerId } from './adapters/timerAlertsAdapter'
 
 export const getUser = core.getUserUseCase(findUserById)
+export const createUser = core.createUserUseCase(isUsernameUnique)(_createUser)(hashPassword)
+export const updateUser = core.updateUserUseCase(findUserById)(saveUser)
+export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)(hashPassword)
+export const deleteUser = core.deleteUserUseCase(_deleteUser)
 export const getTimersByUserId = core.getTimersByUserIdUseCase(userExists)(findTimersByUserId)
 export const getInventoriesByUserId = core.getInventoriesByUserIdUseCase(userExists)(findInventoriesByUserId)
 export const getTimer = core.getTimerUseCase(findTimerById)
