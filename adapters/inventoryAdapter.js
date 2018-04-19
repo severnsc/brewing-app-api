@@ -34,3 +34,5 @@ export const findInventoryById = () => ({
   name: "test inventory",
   items: [inventoryItem]
 })
+
+export const _createInventory = () => {}

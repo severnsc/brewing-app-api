@@ -4,7 +4,8 @@ import {
   updateUser,
   authenticateUser,
   deleteUser,
-  hashPassword
+  hashPassword,
+  createInventory
 } from '../../compose'
 
 export default {
@@ -37,5 +38,10 @@ export default {
   deleteUser: (_, { id }) => {
     const deletedUser = deleteUser(id)
     return deletedUser
+  },
+
+  createInventory: (_, { name, userId }) => {
+    const inventory = createInventory(name, userId)
+    return inventory
   }
 }
