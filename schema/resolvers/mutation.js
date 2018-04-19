@@ -8,7 +8,8 @@ import {
   createInventory,
   updateInventory,
   deleteInventory,
-  createInventoryItem
+  createInventoryItem,
+  updateInventoryItem
 } from '../../compose'
 
 export default {
@@ -61,5 +62,28 @@ export default {
   createInventoryItem: (_, { inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt }) => {
     const inventoryItem = createInventoryItem(inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt)
     return inventoryItem
+  },
+
+  updateInventoryItem: (_, { id, inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate }) => {
+    let updatePropsObj = {}
+
+    const args = [{inventoryId}, {object}, {quantityUnit}, {currentQuantity}, {reorderQuantity}, {reorderThreshold}, {costUnit}, {unitCost}, {reorderCost}, {lastReorderDate}, {deliveryDate}]
+
+    const argKeys = args.map(arg => Object.keys(arg)[0])
+
+    args.forEach((arg, index) => {
+      if(arg[argKeys[index]]){
+        updatePropsObj = Object.assign({}, updatePropsObj, arg)
+      }else if(arg[argKeys[index]] === 0){
+        updatePropsObj = Object.assign({}, updatePropsObj, arg)
+      }else if(['lastReorderDate', 'deliveryDate'].some(str => str === argKeys[index])){
+        if(arg[argKeys[index]] === null){
+          updatePropsObj = Object.assign({}, updatePropsObj, arg)
+        }
+      }
+    })
+
+    const updatedInventoryItem = updateInventoryItem(id, updatePropsObj)
+    return updatedInventoryItem
   }
 }

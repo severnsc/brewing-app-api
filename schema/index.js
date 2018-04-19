@@ -26,6 +26,7 @@ const Mutation = `
     updateInventory(id: String!, name: String!): Inventory
     deleteInventory(id: String!): Inventory
     createInventoryItem(inventoryId: String!, object: String!, quantityUnit: String!, currentQuantity: Float!, reorderQuantity: Float!, reorderThreshold: Float!, costUnit: String!, unitCost: Float!, reorderCost: Float!, lastReorderDate: String, deliveryDate: String, createdAt: String!, updatedAt: String!): InventoryItem
+    updateInventoryItem(id: String!, inventoryId: String, object: String, quantityUnit: String, currentQuantity: Float, reorderQuantity: Float, reorderThreshold: Float, costUnit: String, unitCost: Float, reorderCost: Float, lastReorderDate: String, deliveryDate: String): InventoryItem
   }
 `
 
