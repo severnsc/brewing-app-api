@@ -7,7 +7,8 @@ import {
   hashPassword,
   createInventory,
   updateInventory,
-  deleteInventory
+  deleteInventory,
+  createInventoryItem
 } from '../../compose'
 
 export default {
@@ -55,5 +56,10 @@ export default {
   deleteInventory: (_, { id }) => {
     const deletedInventory = deleteInventory(id)
     return deletedInventory
+  },
+
+  createInventoryItem: (_, { inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt }) => {
+    const inventoryItem = createInventoryItem(inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt)
+    return inventoryItem
   }
 }

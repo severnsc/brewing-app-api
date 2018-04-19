@@ -25,6 +25,13 @@ import {
   findInventoryById
 } from './adapters/inventoryAdapter'
 
+import {
+  _createInventoryItem,
+  addToInventory
+} from './adapters/inventoryItemAdapter'
+
+console.log("createInventoryItem", _createInventoryItem)
+
 import { findTimerAlertsByTimerId } from './adapters/timerAlertsAdapter'
 
 export const getUser = core.getUserUseCase(findUserById)
@@ -40,3 +47,4 @@ export const getInventoriesByUserId = core.getInventoriesByUserIdUseCase(userExi
 export const getTimer = core.getTimerUseCase(findTimerById)
 export const getInventory = core.getInventoryUseCase(findInventoryById)
 export const getTimerAlertsByTimerId = core.getTimerAlertsByTimerIdUseCase(timerExists)(findTimerAlertsByTimerId)
+export const createInventoryItem = core.createInventoryItemUseCase(_createInventoryItem)(addToInventory)
