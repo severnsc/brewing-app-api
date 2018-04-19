@@ -19,6 +19,8 @@ import {
 
 import {
   _createInventory,
+  saveInventory,
+  _deleteInventory,
   findInventoriesByUserId,
   findInventoryById
 } from './adapters/inventoryAdapter'
@@ -32,6 +34,8 @@ export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)
 export const deleteUser = core.deleteUserUseCase(_deleteUser)
 export const getTimersByUserId = core.getTimersByUserIdUseCase(userExists)(findTimersByUserId)
 export const createInventory = core.createInventoryUseCase(_createInventory)
+export const updateInventory = core.updateInventoryUseCase(findInventoryById)(saveInventory)
+export const deleteInventory = core.deleteInventoryUseCase(_deleteInventory)
 export const getInventoriesByUserId = core.getInventoriesByUserIdUseCase(userExists)(findInventoriesByUserId)
 export const getTimer = core.getTimerUseCase(findTimerById)
 export const getInventory = core.getInventoryUseCase(findInventoryById)

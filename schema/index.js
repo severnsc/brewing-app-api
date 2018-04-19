@@ -23,6 +23,8 @@ const Mutation = `
     authenticateUser(userName: String!, password: String!): User
     deleteUser(id: String!): User
     createInventory(name: String!, userId: String!): Inventory
+    updateInventory(id: String!, name: String!): Inventory
+    deleteInventory(id: String!): Inventory
   }
 `
 

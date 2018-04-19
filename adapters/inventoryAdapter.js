@@ -36,3 +36,7 @@ export const findInventoryById = () => ({
 })
 
 export const _createInventory = () => {}
+
+export const saveInventory = () => {}
+
+export const _deleteInventory = () => {}
