@@ -16,6 +16,7 @@ import {
   stopTimer,
   decrementTimer,
   resetTimer,
+  updateTimer,
   deleteTimer
 } from '../../compose'
 
@@ -121,6 +122,21 @@ export default {
 
   resetTimer: (_, { id }) => {
     const timer = resetTimer(id)
+    return timer
+  },
+
+  updateTimer: (_, { id, duration, intervalDuration }) => {
+    let updatePropsObj = {}
+
+    if(duration){
+      updatePropsObj.duration = duration
+    }
+
+    if(intervalDuration){
+      updatePropsObj.intervalDuration = intervalDuration
+    }
+
+    const timer = updateTimer(id, updatePropsObj)
     return timer
   },
 

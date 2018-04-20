@@ -33,6 +33,7 @@ const Mutation = `
     stopTimer(id: String!): Timer
     decrementTimer(id: String!): Timer
     resetTimer(id: String!): Timer
+    updateTimer(id: String!, duration: Int, intervalDuration: Int): Timer
     deleteTimer(id: String!): Timer
   }
 `

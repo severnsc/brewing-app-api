@@ -117,6 +117,46 @@ describe('Timer resolvers', () => {
 
   })
 
+  describe('updateTimer', () => {
+
+    const testTimer = {
+      id: "1",
+      userId: "1",
+      duration: 1000,
+      remainingDuration: 1000,
+      intervalDuration: 500,
+      isRunning: false
+    }
+
+    const updatePropsObj = {
+      duration: 25000,
+      intervalDuration: 5000
+    }
+
+    const updateTimer = Resolvers.Mutation.updateTimer
+
+    const timer = updateTimer('_', {id: "1", duration: updatePropsObj.duration, intervalDuration: updatePropsObj.intervalDuration})
+
+    it('should be an object', () => {
+      expect(timer).to.be.an('object')
+    })
+
+    it('should have an id field that equals id arg', () => {
+      expect(timer.id).to.equal("1")
+      expect(updateTimer('_', {id: "2"}).id).to.equal("2")
+    })
+
+    it('should have duration and intervalDuration equal to corresponding args', () => {
+      expect(timer.duration).to.equal(25000)
+      expect(timer.intervalDuration).to.equal(5000)
+    })
+
+    it('should equal testTimer merged with updatePropsObj', () => {
+      expect(timer).to.deep.equal(Object.assign({}, testTimer, updatePropsObj))
+    })
+
+  })
+
   describe('deleteTimer', () => {
 
     const deleteTimer = Resolvers.Mutation.deleteTimer
