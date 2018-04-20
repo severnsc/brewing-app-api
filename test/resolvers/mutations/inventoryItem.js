@@ -2,7 +2,7 @@ import Resolvers from '../../../schema/resolvers'
 import chai from 'chai'
 const expect = chai.expect
 
-describe('updatedInventoryItem resolvers', () => {
+describe('InventoryItem resolvers', () => {
 
   describe('createInventoryItem', () => {
 
@@ -130,6 +130,18 @@ describe('updatedInventoryItem resolvers', () => {
 
     it('should have deliveryDate property equal to deliveryDate arg', () => {
       expect(updatedInventoryItem.deliveryDate).to.be.equal(date)
+    })
+
+  })
+
+  describe('deleteInventoryItem', () => {
+
+    const deleteInventoryItem = Resolvers.Mutation.deleteInventoryItem
+
+    const deletedInventoryItem = deleteInventoryItem('_', {id: "1"})
+
+    it('should return null', () => {
+      expect(deletedInventoryItem).to.be.a('null')
     })
 
   })

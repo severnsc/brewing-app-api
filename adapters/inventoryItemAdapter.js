@@ -20,3 +20,5 @@ export const findInventoryItemById = id => ({
 })
 
 export const saveInventoryItem = () => {}
+
+export const _deleteInventoryItem = () => {}

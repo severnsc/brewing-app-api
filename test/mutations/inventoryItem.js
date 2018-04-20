@@ -9,7 +9,7 @@ addMockFunctionsToSchema({ schema })
 
 describe('inventoryItem mutations', () => {
 
-  describe('createInventory', () => {
+  describe('createInventoryItem', () => {
 
     const mutation = `
       mutation NewInventoryItem {
@@ -149,7 +149,7 @@ describe('inventoryItem mutations', () => {
 
   })
 
-  describe('updateInventory', () => {
+  describe('updateInventoryItem', () => {
 
     const mutation = `
       mutation UpdatedInventoryItem {
@@ -285,6 +285,24 @@ describe('inventoryItem mutations', () => {
       const inventoryItem = result.data.updateInventoryItem
       expect(inventoryItem).to.have.property('updatedAt')
       expect(inventoryItem.updatedAt).to.be.an('string')
+    })
+
+  })
+
+  describe('deleteInventoryItem', () => {
+
+    const mutation = `
+      mutation DeletedInventoryItem {
+        deleteInventoryItem(id: "1"){
+          id
+        }
+      }
+    `
+
+    it('should not have errors', async () => {
+      const promise = graphql(schema, mutation)
+      const result = await promise
+      expect(result.errors).to.not.be.an('array')
     })
 
   })

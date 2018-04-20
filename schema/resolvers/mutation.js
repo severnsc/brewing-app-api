@@ -9,7 +9,8 @@ import {
   updateInventory,
   deleteInventory,
   createInventoryItem,
-  updateInventoryItem
+  updateInventoryItem,
+  deleteInventoryItem
 } from '../../compose'
 
 export default {
@@ -85,5 +86,10 @@ export default {
 
     const updatedInventoryItem = updateInventoryItem(id, updatePropsObj)
     return updatedInventoryItem
+  },
+
+  deleteInventoryItem: (_, { id }) => {
+    const deletedInventoryItem = deleteInventoryItem(id)
+    return deletedInventoryItem
   }
 }
