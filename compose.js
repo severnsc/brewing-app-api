@@ -12,6 +12,7 @@ import {
 } from './adapters/userAdapter'
 
 import {
+  _createTimer,
   findTimersByUserId,
   findTimerById,
   timerExists
@@ -40,6 +41,7 @@ export const createUser = core.createUserUseCase(isUsernameUnique)(_createUser)(
 export const updateUser = core.updateUserUseCase(findUserById)(saveUser)
 export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)(hashPassword)
 export const deleteUser = core.deleteUserUseCase(_deleteUser)
+export const createTimer = core.createTimerUseCase(_createTimer)
 export const getTimersByUserId = core.getTimersByUserIdUseCase(userExists)(findTimersByUserId)
 export const createInventory = core.createInventoryUseCase(_createInventory)
 export const updateInventory = core.updateInventoryUseCase(findInventoryById)(saveInventory)

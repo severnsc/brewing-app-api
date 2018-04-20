@@ -29,3 +29,5 @@ export const findTimerById = () => ({
 })
 
 export const timerExists = () => true
+
+export const _createTimer = () => {}

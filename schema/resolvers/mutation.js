@@ -10,7 +10,8 @@ import {
   deleteInventory,
   createInventoryItem,
   updateInventoryItem,
-  deleteInventoryItem
+  deleteInventoryItem,
+  createTimer
 } from '../../compose'
 
 export default {
@@ -91,5 +92,10 @@ export default {
   deleteInventoryItem: (_, { id }) => {
     const deletedInventoryItem = deleteInventoryItem(id)
     return deletedInventoryItem
+  },
+
+  createTimer: (_, { userId, duration, intervalDuration }) => {
+    const timer = createTimer(userId, duration, intervalDuration)
+    return timer
   }
 }
