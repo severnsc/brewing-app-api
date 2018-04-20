@@ -11,7 +11,12 @@ import {
   createInventoryItem,
   updateInventoryItem,
   deleteInventoryItem,
-  createTimer
+  createTimer,
+  startTimer,
+  stopTimer,
+  decrementTimer,
+  resetTimer,
+  deleteTimer
 } from '../../compose'
 
 export default {
@@ -96,6 +101,31 @@ export default {
 
   createTimer: (_, { userId, duration, intervalDuration }) => {
     const timer = createTimer(userId, duration, intervalDuration)
+    return timer
+  },
+
+  startTimer: (_, { id }) => {
+    const timer = startTimer(id)
+    return timer
+  },
+
+  stopTimer: (_, { id }) => {
+    const timer = stopTimer(id)
+    return timer
+  },
+
+  decrementTimer: (_, { id }) => {
+    const timer = decrementTimer(id)
+    return timer
+  },
+
+  resetTimer: (_, { id }) => {
+    const timer = resetTimer(id)
+    return timer
+  },
+
+  deleteTimer: (_, { id }) => {
+    const timer = deleteTimer(id)
     return timer
   }
 }

@@ -15,7 +15,9 @@ import {
   _createTimer,
   findTimersByUserId,
   findTimerById,
-  timerExists
+  timerExists,
+  saveTimer,
+  _deleteTimer
 } from './adapters/timerAdapter'
 
 import {
@@ -42,6 +44,11 @@ export const updateUser = core.updateUserUseCase(findUserById)(saveUser)
 export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)(hashPassword)
 export const deleteUser = core.deleteUserUseCase(_deleteUser)
 export const createTimer = core.createTimerUseCase(_createTimer)
+export const startTimer = core.startTimerUseCase(findTimerById)(saveTimer)
+export const stopTimer = core.stopTimerUseCase(findTimerById)(saveTimer)
+export const decrementTimer = core.decrementTimerUseCase(findTimerById)(saveTimer)
+export const resetTimer = core.resetTimerUseCase(findTimerById)(saveTimer)
+export const deleteTimer = core.deleteTimerUseCase(_deleteTimer)
 export const getTimersByUserId = core.getTimersByUserIdUseCase(userExists)(findTimersByUserId)
 export const createInventory = core.createInventoryUseCase(_createInventory)
 export const updateInventory = core.updateInventoryUseCase(findInventoryById)(saveInventory)

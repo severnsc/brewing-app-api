@@ -19,7 +19,7 @@ export const findTimersByUserId = () => {
   ]
 }
 
-export const findTimerById = () => ({
+export const findTimerById = id => ({
   id,
   userId: "1",
   duration: 1000,
@@ -31,3 +31,7 @@ export const findTimerById = () => ({
 export const timerExists = () => true
 
 export const _createTimer = () => {}
+
+export const saveTimer = () => {}
+
+export const _deleteTimer = () => {}

@@ -29,6 +29,11 @@ const Mutation = `
     updateInventoryItem(id: String!, inventoryId: String, object: String, quantityUnit: String, currentQuantity: Float, reorderQuantity: Float, reorderThreshold: Float, costUnit: String, unitCost: Float, reorderCost: Float, lastReorderDate: String, deliveryDate: String): InventoryItem
     deleteInventoryItem(id: String!): Inventory
     createTimer(userId: String!, duration: Int!, intervalDuration: Int!): Timer
+    startTimer(id: String!): Timer
+    stopTimer(id: String!): Timer
+    decrementTimer(id: String!): Timer
+    resetTimer(id: String!): Timer
+    deleteTimer(id: String!): Timer
   }
 `
 
