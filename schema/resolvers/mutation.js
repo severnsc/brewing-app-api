@@ -17,7 +17,8 @@ import {
   decrementTimer,
   resetTimer,
   updateTimer,
-  deleteTimer
+  deleteTimer,
+  createTimerAlert
 } from '../../compose'
 
 export default {
@@ -143,5 +144,10 @@ export default {
   deleteTimer: (_, { id }) => {
     const timer = deleteTimer(id)
     return timer
+  },
+
+  createTimerAlert: (timerId, activationTime, message) => {
+    const timerAlert = createTimerAlert(timerId, activationTime, message)
+    return timerAlert
   }
 }
