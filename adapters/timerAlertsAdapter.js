@@ -18,3 +18,13 @@ export const findTimerAlertsByTimerId = () => {
 }
 
 export const _createTimerAlert = () => {}
+
+export const findTimerAlertById = id => ({
+  id,
+  timerId: "1",
+  activationTime: 1000,
+  message: "test",
+  activated: false
+})
+
+export const saveTimerAlert = () => {}

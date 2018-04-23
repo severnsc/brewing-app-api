@@ -11,14 +11,14 @@ describe('timer alert mutation resolvers', () => {
     const timerId = "1"
     const activationTime = 1000
     const message = "hello"
-    const timerAlert = createTimerAlert(timerId, activationTime, message)
+    const timerAlert = createTimerAlert('_', { timerId, activationTime, message })
 
     it('should return an object', () => {
       expect(timerAlert).to.be.an('object')
     })
 
     it('should generate unique ids', () => {
-      expect(createTimerAlert(timerId, activationTime, message).id).to.not.equal(timerAlert.id)
+      expect(createTimerAlert('_', { timerId, activationTime, message }).id).to.not.equal(timerAlert.id)
     })
 
     it('should have timerId prop equal to timerId arg', () => {
@@ -38,5 +38,106 @@ describe('timer alert mutation resolvers', () => {
     })
 
   })
+
+  describe('updateTimerAlert', () => {
+
+    const updateTimerAlert = Resolvers.Mutation.updateTimerAlert
+
+    const timerId = "2"
+    const activationTime = 0
+    const message = "this is an updated message"
+
+    const timerAlert = updateTimerAlert("1", timerId, activationTime, message)
+
+    it('should return an object', () => {
+      expect(timerAlert).to.be.an('object')
+    })
+
+    it('should have id equal to id arg', () => {
+      expect(timerAlert.id).to.equal("1")
+    })
+
+    it('should have timerId equal to timerId arg', () => {
+      expect(timerAlert.timerId).to.equal(timerId)
+    })
+
+    it('should have activationTime equal to activationTime arg', () => {
+      expect(timerAlert.activationTime).to.equal(activationTime)
+    })
+
+    it('should have message equal to message arg', () => {
+      expect(timerAlert.message).to.equal(message)
+    })
+
+    it('should have activated equal to false', () => {
+      expect(timerAlert.activated).to.equal(false)
+    })
+
+    describe('when only timerId is non-null', () => {
+      
+      const timerId = "2"
+      const activationTime = null
+      const message = null
+      const otherTimerAlert = updateTimerAlert("1", timerId, activationTime, message)
+
+      it('should update timerId field to equal timerId arg', () => {
+        expect(otherTimerAlert.timerId).to.equal("2")
+      })
+
+      it('should not update the activationTime field', () => {
+        expect(otherTimerAlert.activationTime).to.not.be.a('null')
+      })
+
+      it('should not update the message field', () => {
+        expect(otherTimerAlert.message).to.not.be.a('null')
+      })
+
+    })
+
+    describe('when only activationTime is non-null', () => {
+      
+      const timerId = null
+      const activationTime = 10
+      const message = null
+      const otherTimerAlert = updateTimerAlert("1", timerId, activationTime, message)
+
+      it('should update activationTime field to equal activationTime arg', () => {
+        expect(otherTimerAlert.activationTime).to.equal(activationTime)
+      })
+
+      it('should not update the timerId field', () => {
+        expect(otherTimerAlert.timerId).to.not.be.a('null')
+      })
+
+      it('should not update the message field', () => {
+        expect(otherTimerAlert.message).to.not.be.a('null')
+      })
+
+    })
+
+    describe('when only message field is non-null', () => {
+      
+      const timerId = null
+      const activationTime = null
+      const message = "updated!"
+      const otherTimerAlert = updateTimerAlert("1", timerId, activationTime, message)
+
+      it('should update message field to equal message arg', () => {
+        expect(otherTimerAlert.message).to.equal(message)
+      })
+
+      it('should not update the timerId field', () => {
+        expect(otherTimerAlert.timerId).to.not.be.a('null')
+      })
+
+      it('should not update the activationTime field', () => {
+        expect(otherTimerAlert.activationTime).to.not.be.a('null')
+      })
+
+    })
+
+  })
+
+
 
 })
