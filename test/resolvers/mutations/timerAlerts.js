@@ -138,6 +138,38 @@ describe('timer alert mutation resolvers', () => {
 
   })
 
+  describe('activateTimerAlert', () => {
+
+    const activateTimerAlert = Resolvers.Mutation.activateTimerAlert
+
+    const timerAlert = activateTimerAlert('_', {id: "1"})
+
+    it('should return an object', () => {
+      expect(timerAlert).to.be.an('object')
+    })
+
+    it('should have id prop equal to id arg', () => {
+      expect(timerAlert.id).to.equal("1")
+    })
+
+    it('should have activated prop equal to true', () => {
+      expect(timerAlert.activated).to.equal(true)
+    })
+
+  })
+
+  describe('deleteTimerAlert', () => {
+
+    const deleteTimerAlert = Resolvers.Mutation.deleteTimerAlert
+
+    const timerAlert = deleteTimerAlert('_', {id: "1"})
+
+    it('should return null', () => {
+      expect(timerAlert).to.be.a('null')
+    })
+
+  })
+
 
 
 })

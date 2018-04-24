@@ -40,8 +40,11 @@ import {
   findTimerAlertsByTimerId,
   findTimerAlertById,
   saveTimerAlert,
-  _createTimerAlert
+  _createTimerAlert,
+  _deleteTimerAlert
 } from './adapters/timerAlertsAdapter'
+
+import { sendMessage } from './adapters/messagingAdapter'
 
 export const getUser = core.getUserUseCase(findUserById)
 export const createUser = core.createUserUseCase(isUsernameUnique)(_createUser)(hashPassword)
@@ -64,6 +67,8 @@ export const getTimer = core.getTimerUseCase(findTimerById)
 export const getInventory = core.getInventoryUseCase(findInventoryById)
 export const createTimerAlert = core.createTimerAlertUseCase(_createTimerAlert)
 export const updateTimerAlert = core.updateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)
+export const activateTimerAlert = core.activateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)(sendMessage)
+export const deleteTimerAlert = core.deleteTimerAlertUseCase(_deleteTimerAlert)
 export const getTimerAlertsByTimerId = core.getTimerAlertsByTimerIdUseCase(timerExists)(findTimerAlertsByTimerId)
 export const createInventoryItem = core.createInventoryItemUseCase(_createInventoryItem)(addToInventory)
 export const updateInventoryItem = core.updateInventoryItemUseCase(findInventoryItemById)(saveInventoryItem)

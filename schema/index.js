@@ -37,6 +37,8 @@ const Mutation = `
     deleteTimer(id: String!): Timer
     createTimerAlert(timerId: String!, activationTime: Int!, message: String!): TimerAlert
     updateTimerAlert(id: String!, timerId: String, activationTime: Int, message: String): TimerAlert
+    activateTimerAlert(id: String!): TimerAlert
+    deleteTimerAlert(id: String!): TimerAlert
   }
 `
 

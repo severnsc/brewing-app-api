@@ -28,3 +28,5 @@ export const findTimerAlertById = id => ({
 })
 
 export const saveTimerAlert = () => {}
+
+export const _deleteTimerAlert = () => {}

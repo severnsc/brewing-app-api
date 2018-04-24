@@ -19,7 +19,9 @@ import {
   updateTimer,
   deleteTimer,
   createTimerAlert,
-  updateTimerAlert
+  updateTimerAlert,
+  activateTimerAlert,
+  deleteTimerAlert
 } from '../../compose'
 
 export default {
@@ -170,5 +172,15 @@ export default {
     const timerAlert = updateTimerAlert(id, updatePropsObj)
 
     return timerAlert
+  },
+
+  activateTimerAlert: (_, { id }) => {
+    const timerAlert = activateTimerAlert(id)
+    return timerAlert
+  },
+
+  deleteTimerAlert: (_, { id }) => {
+    const deletedTimerAlert = deleteTimerAlert(id)
+    return deletedTimerAlert
   }
 }
