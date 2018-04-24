@@ -46,6 +46,7 @@ import {
 
 import { sendMessage } from './adapters/messagingAdapter'
 
+export { hashPassword }
 export const getUser = core.getUserUseCase(findUserById)
 export const createUser = core.createUserUseCase(isUsernameUnique)(_createUser)(hashPassword)
 export const updateUser = core.updateUserUseCase(findUserById)(saveUser)

@@ -1,6 +1,7 @@
 export const findUserById = id => ({
   id,
-  userName: "test user"
+  userName: "test user",
+  hashedPassword: "hashedPassword"
 })
 
 export const findUserByUsername = userName => ({
