@@ -62,8 +62,6 @@ if(process.env.NODE_ENV === 'dev'){
     return timer
   }
 
-  timerExists = () => true
-
   _createTimer = async timer => {
     insertOne("timers", timer)
   }

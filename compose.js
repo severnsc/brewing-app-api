@@ -15,7 +15,6 @@ import {
   _createTimer,
   findTimersByUserId,
   findTimerById,
-  timerExists,
   saveTimer,
   _deleteTimer
 } from './adapters/timerAdapter'
@@ -78,7 +77,7 @@ export const createTimerAlert = core.createTimerAlertUseCase(_createTimerAlert)
 export const updateTimerAlert = core.updateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)
 export const activateTimerAlert = core.activateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)(sendMessage)
 export const deleteTimerAlert = core.deleteTimerAlertUseCase(_deleteTimerAlert)
-export const getTimerAlertsByTimerId = core.getTimerAlertsByTimerIdUseCase(timerExists)(findTimerAlertsByTimerId)
+export const getTimerAlertsByTimerId = core.getTimerAlertsByTimerIdUseCase(findTimerAlertsByTimerId)
 
 //Inventory Item
 export const createInventoryItem = core.createInventoryItemUseCase(_createInventoryItem)(addToInventory)

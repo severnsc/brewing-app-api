@@ -50,7 +50,10 @@ if(process.env.NODE_ENV === 'dev'){
     return user
   }
 
-  userExists = id => true
+  userExists = async id => {
+    const user = await findUserById(id)
+    return user ? true : false
+  }
 
   isUsernameUnique = () => true
 

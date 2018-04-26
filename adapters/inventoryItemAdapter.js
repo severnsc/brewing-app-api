@@ -6,6 +6,8 @@ import {
   deleteOne
 } from './databaseAdapter'
 
+import { getInventory, updateInventory } from '../compose'
+
 let _createInventoryItem
 let addToInventory
 let findInventoryItemById
@@ -42,7 +44,11 @@ if(process.env.NODE_ENV === 'dev'){
     insertOne(inventoryItem)
   }
 
-  addToInventory = () => {}
+  addToInventory = async inventoryItem => {
+    const inventoryId = inventoryItem.inventoryId
+    const inventory = await getInventory(inventoryId)
+    await updateInventory(inventoryId, {items: [...inventory.items, inventoryItem]})
+  }
 
   findInventoryItemById = async id => {
     const inventoryItem = await find('inventoryItems', {id})
