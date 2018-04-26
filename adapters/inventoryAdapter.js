@@ -1,4 +1,4 @@
-import { find, findOne } from './databaseAdapter'
+import { find, findOne, insertOne } from './databaseAdapter'
 
 let findInventoriesByUserId 
 
@@ -64,7 +64,9 @@ if(process.env.NODE_ENV === 'dev'){
     return inventory
   }
 
-  _createInventory = () => {}
+  _createInventory = async inventory => {
+    insertOne(inventory)
+  }
 
   saveInventory = () => {}
 

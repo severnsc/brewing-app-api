@@ -1,4 +1,4 @@
-import { find, findOne } from './databaseAdapter'
+import { find, findOne, insertOne } from './databaseAdapter'
 
 let _createInventoryItem
 let addToInventory
@@ -32,7 +32,9 @@ if(process.env.NODE_ENV === 'dev'){
 
   _deleteInventoryItem = () => {}
 }else{
-  _createInventoryItem = () => {}
+  _createInventoryItem = async inventoryItem => {
+    insertOne(inventoryItem)
+  }
 
   addToInventory = () => {}
 

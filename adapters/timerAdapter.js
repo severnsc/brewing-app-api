@@ -1,4 +1,4 @@
-import { find, findOne } from './databaseAdapter'
+import { find, findOne, insertOne } from './databaseAdapter'
 
 let findTimerById
 let findTimersByUserId
@@ -58,7 +58,9 @@ if(process.env.NODE_ENV === 'dev'){
 
   timerExists = () => true
 
-  _createTimer = () => {}
+  _createTimer = async timer => {
+    insertOne(timer)
+  }
 
   saveTimer = () => {}
 

@@ -27,3 +27,14 @@ export const find = async (collectionName, searchObj) => {
   const docs = await collection.find(searchObj).toArray()
   return docs
 }
+
+export const insertOne = async (collectionName, doc) => {
+  const collection = db.collection(collectionName)
+  collection.insertOne(doc, (err, r) => {
+    if(err){
+      throw new Error('insertOne failed!')
+    }
+
+    console.log(r.insertedCount)
+  })
+}

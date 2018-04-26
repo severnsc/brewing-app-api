@@ -1,4 +1,4 @@
-import { find, findOne } from './databaseAdapter'
+import { find, findOne, insertOne } from './databaseAdapter'
 
 let findTimerAlertById
 let findTimerAlertsByTimerId
@@ -46,7 +46,9 @@ if(process.env.NODE_ENV === 'dev'){
     return timerAlerts
   }
 
-  _createTimerAlert = () => {}
+  _createTimerAlert = async timerAlert => {
+    insertOne(timerAlert)
+  }
 
   findTimerAlertById = async id => {
     const timerAlert = findOne('timerAlerts', {id})
