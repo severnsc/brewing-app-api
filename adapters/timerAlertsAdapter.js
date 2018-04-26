@@ -1,32 +1,65 @@
-export const findTimerAlertsByTimerId = () => {
-  return [
-    {
-      id: "1",
-      timerId: "1",
-      activationTime: 1000,
-      message: "Hello!",
-      activated: false
-    },
-    {
-      id: "2",
-      timerId: "1",
-      activationTime: 500,
-      message: "Hello again!",
-      activated: false
-    }
-  ]
+import { find, findOne } from './databaseAdapter'
+
+let findTimerAlertById
+let findTimerAlertsByTimerId
+let _createTimerAlert
+let saveTimerAlert
+let _deleteTimerAlert
+
+if(process.env.NODE_ENV === 'dev'){
+  findTimerAlertsByTimerId = () => {
+    return [
+      {
+        id: "1",
+        timerId: "1",
+        activationTime: 1000,
+        message: "Hello!",
+        activated: false
+      },
+      {
+        id: "2",
+        timerId: "1",
+        activationTime: 500,
+        message: "Hello again!",
+        activated: false
+      }
+    ]
+  }
+
+  _createTimerAlert = () => {}
+
+  findTimerAlertById = id => ({
+    id,
+    timerId: "1",
+    activationTime: 1000,
+    message: "test",
+    activated: false
+  })
+
+  saveTimerAlert = () => {}
+
+  _deleteTimerAlert = () => {}
+
+}else{
+  findTimerAlertsByTimerId = async timerId => {
+    const timerAlerts = find('timerAlerts', {timerId})
+    return timerAlerts
+  }
+
+  _createTimerAlert = () => {}
+
+  findTimerAlertById = async id => {
+    const timerAlert = findOne('timerAlerts', {id})
+    return timerAlert
+  }
+
+  saveTimerAlert = () => {}
+
+  _deleteTimerAlert = () => {}
 }
 
-export const _createTimerAlert = () => {}
-
-export const findTimerAlertById = id => ({
-  id,
-  timerId: "1",
-  activationTime: 1000,
-  message: "test",
-  activated: false
-})
-
-export const saveTimerAlert = () => {}
-
-export const _deleteTimerAlert = () => {}
+export {findTimerAlertById}
+export {findTimerAlertsByTimerId}
+export {_createTimerAlert}
+export {saveTimerAlert}
+export {_deleteTimerAlert}

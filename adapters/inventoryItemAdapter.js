@@ -1,24 +1,53 @@
-export const _createInventoryItem = () => {}
+import { find, findOne } from './databaseAdapter'
 
-export const addToInventory = () => {}
+let _createInventoryItem
+let addToInventory
+let findInventoryItemById
+let saveInventoryItem
+let _deleteInventoryItem
 
-export const findInventoryItemById = id => ({
-  id,
-  inventoryId: "1", 
-  object: {name:'object'},
-  quantityUnit: "lbs",
-  currentQuantity: 10,
-  reorderQuantity: 10,
-  reorderThreshold: 5,
-  costUnit: "USD",
-  unitCost: 1,
-  reorderCost: 10,
-  lastReorderDate: null,
-  deliveryDate: null,
-  createdAt: new Date(),
-  updatedAt: new Date()
-})
+if(process.env.NODE_ENV === 'dev'){
+  _createInventoryItem = () => {}
 
-export const saveInventoryItem = () => {}
+  addToInventory = () => {}
 
-export const _deleteInventoryItem = () => {}
+  findInventoryItemById = id => ({
+    id,
+    inventoryId: "1", 
+    object: {name:'object'},
+    quantityUnit: "lbs",
+    currentQuantity: 10,
+    reorderQuantity: 10,
+    reorderThreshold: 5,
+    costUnit: "USD",
+    unitCost: 1,
+    reorderCost: 10,
+    lastReorderDate: null,
+    deliveryDate: null,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  })
+
+  saveInventoryItem = () => {}
+
+  _deleteInventoryItem = () => {}
+}else{
+  _createInventoryItem = () => {}
+
+  addToInventory = () => {}
+
+  findInventoryItemById = async id => {
+    const inventoryItem = await find('inventoryItems', {id})
+    return inventoryItem
+  }
+
+  saveInventoryItem = () => {}
+
+  _deleteInventoryItem = () => {}
+}
+
+export {_createInventoryItem}
+export {addToInventory}
+export {findInventoryItemById}
+export {saveInventoryItem}
+export {_deleteInventoryItem}

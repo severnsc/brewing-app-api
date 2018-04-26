@@ -1,23 +1,67 @@
-export const findUserById = id => ({
-  id,
-  userName: "test user",
-  hashedPassword: "hashedPassword"
-})
+import { find, findOne } from './databaseAdapter'
 
-export const findUserByUsername = userName => ({
-  id: "1",
-  userName,
-  hashedPassword: "password"
-})
+let findUserById
+let findUserByUsername
+let userExists
+let isUsernameUnique
+let _createUser
+let hashPassword
+let saveUser
+let _deleteUser
 
-export const userExists = id => true
+if(process.env.NODE_ENV === 'dev'){
+  findUserById = id => ({
+    id,
+    userName: "test user",
+    hashedPassword: "hashedPassword"
+  })
 
-export const isUsernameUnique = () => true
+  findUserByUsername = userName => ({
+    id: "1",
+    userName,
+    hashedPassword: "password"
+  })
 
-export const _createUser = () => {}
+  userExists = id => true
 
-export const hashPassword = word => word
+  isUsernameUnique = () => true
 
-export const saveUser = () => {}
+  _createUser = () => {}
 
-export const _deleteUser = () => {}
+  hashPassword = word => word
+
+  saveUser = () => {}
+
+  _deleteUser = () => {}
+}else{
+  findUserById = async id => {
+    const user = findOne('users', {id})
+    return user
+  }
+
+  findUserByUsername = async userName => {
+    const user = findOne('users', {userName})
+    return user
+  }
+
+  userExists = id => true
+
+  isUsernameUnique = () => true
+
+  _createUser = () => {}
+
+  hashPassword = word => word
+
+  saveUser = () => {}
+
+  _deleteUser = () => {}
+}
+
+export {findUserById}
+export {findUserByUsername}
+export {userExists}
+export {isUsernameUnique}
+export {_createUser}
+export {hashPassword}
+export {saveUser}
+export {_deleteUser}

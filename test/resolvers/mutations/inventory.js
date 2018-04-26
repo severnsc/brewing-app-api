@@ -1,6 +1,8 @@
 import Resolvers from '../../../schema/resolvers'
 import chai from 'chai'
 const expect = chai.expect
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
 
 describe('inventory mutations', () => {
 
@@ -48,22 +50,22 @@ describe('inventory mutations', () => {
 
     const updateInventory = Resolvers.Mutation.updateInventory
 
-    const updatedInventory = updateInventory('_', {id: "1", name: "update!"})
+    const updatedInventoryPromise = updateInventory('_', {id: "1", name: "update!"})
 
     it('should return an object', () => {
-      expect(updatedInventory).to.be.an('object')
+      expect(updatedInventoryPromise).to.eventually.be.an('object')
     })
 
     it('should have id property that equals id arg', () => {
-      expect(updatedInventory.id).to.equal("1")
+      expect(updatedInventoryPromise).to.eventually.have.property('id').equal("1")
     })
 
     it('should have name property equal to name arg', () => {
-      expect(updatedInventory.name).to.equal('update!')
+      expect(updatedInventoryPromise).to.eventually.have.property('name').equal('update!')
     })
 
     it('should have string userId property', () => {
-      expect(updatedInventory.userId).to.be.a('string')
+      expect(updatedInventoryPromise).to.eventually.have.property("userId").be.a('string')
     })
 
   })

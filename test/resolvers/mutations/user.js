@@ -32,22 +32,22 @@ describe('user mutation resolvers', () => {
 
     const updateUser = Resolvers.Mutation.updateUser
 
-    const user = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"})
+    const userPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"})
 
     it('should return an object', () => {
-      expect(user).to.be.an('object')
+      expect(userPromise).to.eventually.be.an('object')
     })
 
     it('should have id prop equal to id arg', () => {
-      expect(user.id).to.equal("1")
+      expect(userPromise).to.eventually.have.property('id').equal("1")
     })
 
     it('should have userName prop equal to userName arg', () => {
-      expect(user.userName).to.equal("Updated")
+      expect(userPromise).to.eventually.have.property('userName').equal("Updated")
     })
 
     it('should have string hashedPassword', () => {
-      expect(user.hashedPassword).to.be.a('string')
+      expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
     })
 
   })
@@ -56,18 +56,18 @@ describe('user mutation resolvers', () => {
 
     const authenticateUser = Resolvers.Mutation.authenticateUser
 
-    const user = authenticateUser('_', {userName: "user", password: "password"})
+    const userPromise = authenticateUser('_', {userName: "user", password: "password"})
 
     it('should return an object', () => {
-      expect(user).to.be.an('object')
+      expect(userPromise).to.eventually.be.an('object')
     })
 
     it('should have userName prop equal to userName arg', () => {
-      expect(user.userName).to.equal('user')
+      expect(userPromise).to.eventually.have.property('userName').equal('user')
     })
 
     it('should have string hashedPassword', () => {
-      expect(user.hashedPassword).to.be.a('string')
+      expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
     })
 
   })
