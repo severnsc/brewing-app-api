@@ -70,10 +70,12 @@ describe('inventory mutations', () => {
 
     const deleteInventory = Resolvers.Mutation.deleteInventory
 
-    const deletedInventory = deleteInventory("_", {id: "1"})
+    const deletedInventoryPromise = deleteInventory("_", {id: "1"})
+
+
 
     it('should return null', () => {
-      expect(deletedInventory).to.be.a('null')
+      return expect(deletedInventoryPromise).to.eventually.be.a('null')
     })
 
   })

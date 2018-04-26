@@ -138,10 +138,10 @@ describe('InventoryItem resolvers', () => {
 
     const deleteInventoryItem = Resolvers.Mutation.deleteInventoryItem
 
-    const deletedInventoryItem = deleteInventoryItem('_', {id: "1"})
+    const deletedInventoryItemPromise = deleteInventoryItem('_', {id: "1"})
 
     it('should return null', () => {
-      expect(deletedInventoryItem).to.be.a('null')
+      return expect(deletedInventoryItemPromise).to.eventually.be.a('null')
     })
 
   })

@@ -163,10 +163,10 @@ describe('timer alert mutation resolvers', () => {
 
     const deleteTimerAlert = Resolvers.Mutation.deleteTimerAlert
 
-    const timerAlert = deleteTimerAlert('_', {id: "1"})
+    const timerAlertPromise = deleteTimerAlert('_', {id: "1"})
 
     it('should return null', () => {
-      expect(timerAlert).to.be.a('null')
+      return expect(timerAlertPromise).to.eventually.be.a('null')
     })
 
   })

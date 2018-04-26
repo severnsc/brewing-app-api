@@ -76,10 +76,10 @@ describe('user mutation resolvers', () => {
 
     const deleteUser = Resolvers.Mutation.deleteUser
 
-    const user = deleteUser('_', {id: "1"})
+    const userPromise = deleteUser('_', {id: "1"})
 
     it('should return null', () => {
-      expect(user).to.be.a('null')
+      return expect(userPromise).to.eventually.be.a('null')
     })
 
   })

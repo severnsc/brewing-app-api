@@ -156,10 +156,10 @@ describe('Timer resolvers', () => {
 
     const deleteTimer = Resolvers.Mutation.deleteTimer
 
-    const timer = deleteTimer('_', { id: "1" })
+    const timerPromise = deleteTimer('_', { id: "1" })
 
     it('should return null', () => {
-      expect(timer).to.be.a('null')
+      return expect(timerPromise).to.eventually.be.a('null')
     })
 
   })
