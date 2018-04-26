@@ -2,7 +2,8 @@ import {
   find,
   findOne,
   insertOne,
-  updateOne
+  updateOne,
+  deleteOne
 } from './databaseAdapter'
 
 let findTimerById
@@ -64,14 +65,16 @@ if(process.env.NODE_ENV === 'dev'){
   timerExists = () => true
 
   _createTimer = async timer => {
-    insertOne(timer)
+    insertOne("timers", timer)
   }
 
   saveTimer = async timer => {
-    updateOne({id: timer.id}, timer)
+    updateOne("timers", {id: timer.id}, timer)
   }
 
-  _deleteTimer = () => {}
+  _deleteTimer = async id => {
+    deleteOne("timers", id)
+  }
 }
 
 export {findTimerById}

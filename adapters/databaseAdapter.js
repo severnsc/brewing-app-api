@@ -41,11 +41,22 @@ export const insertOne = async (collectionName, doc) => {
 
 export const updateOne = async (collectionName, filter, updateObj) => {
   const collection = db.collection(collectionName)
-  collection.updateOne(filter, {$set: updateObj}, null, (err, r) => {
+  collection.updateOne(filter, {$set: updateObj}, (err, r) => {
     if(err){
       throw new Error("updateOne failed!")
     }
 
     console.log(r.insertedCount)
+  })
+}
+
+export const deleteOne = async (collectionName, id) => {
+  const collection = db.collection(collectionName)
+  collection.deleteOne({id}, (err, r) => {
+    if(err){
+      throw new Error("deleteOne failed!")
+    }
+
+    console.log(r)
   })
 }

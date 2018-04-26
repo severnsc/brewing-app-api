@@ -2,7 +2,8 @@ import {
   find,
   findOne,
   insertOne,
-  updateOne
+  updateOne,
+  deleteOne
 } from './databaseAdapter'
 
 let findInventoriesByUserId 
@@ -70,14 +71,16 @@ if(process.env.NODE_ENV === 'dev'){
   }
 
   _createInventory = async inventory => {
-    insertOne(inventory)
+    insertOne("inventories", inventory)
   }
 
   saveInventory = async inventory => {
-    updateOne({id: inventory.id}, inventory)
+    updateOne("inventories", {id: inventory.id}, inventory)
   }
 
-  _deleteInventory = () => {}
+  _deleteInventory = async id => {
+    deleteOne("inventories", id)
+  }
 }
 
 

@@ -2,7 +2,8 @@ import {
   find,
   findOne,
   insertOne,
-  updateOne
+  updateOne,
+  deleteOne
 } from './databaseAdapter'
 
 let findUserById
@@ -54,16 +55,18 @@ if(process.env.NODE_ENV === 'dev'){
   isUsernameUnique = () => true
 
   _createUser = async user => {
-    insertOne(user)
+    insertOne('users', user)
   }
 
   hashPassword = word => word
 
   saveUser = async user => {
-    updateOne({id: user.id}, user)
+    updateOne("users", {id: user.id}, user)
   }
 
-  _deleteUser = () => {}
+  _deleteUser = async id => {
+    deleteOne("users", id)
+  }
 }
 
 export {findUserById}

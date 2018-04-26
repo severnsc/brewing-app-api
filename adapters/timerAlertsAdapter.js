@@ -2,7 +2,8 @@ import {
   find,
   findOne,
   insertOne,
-  updateOne
+  updateOne,
+  deleteOne
 } from './databaseAdapter'
 
 let findTimerAlertById
@@ -52,7 +53,7 @@ if(process.env.NODE_ENV === 'dev'){
   }
 
   _createTimerAlert = async timerAlert => {
-    insertOne(timerAlert)
+    insertOne("timerAlerts", timerAlert)
   }
 
   findTimerAlertById = async id => {
@@ -61,10 +62,12 @@ if(process.env.NODE_ENV === 'dev'){
   }
 
   saveTimerAlert = async timerAlert => {
-    updateOne({id: timerAlert.id}, timerAlert)
+    updateOne("timerAlerts", {id: timerAlert.id}, timerAlert)
   }
 
-  _deleteTimerAlert = () => {}
+  _deleteTimerAlert = async id => {
+    deleteOne("timerAlerts", id)
+  }
 }
 
 export {findTimerAlertById}

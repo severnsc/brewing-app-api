@@ -2,7 +2,8 @@ import {
   find,
   findOne,
   insertOne,
-  updateOne
+  updateOne,
+  deleteOne
 } from './databaseAdapter'
 
 let _createInventoryItem
@@ -48,11 +49,13 @@ if(process.env.NODE_ENV === 'dev'){
     return inventoryItem
   }
 
-  saveInventoryItem = inventoryItem => {
-    updateOne({id: inventoryItem.id}, inventoryItem)
+  saveInventoryItem = async inventoryItem => {
+    updateOne("inventoryItems", {id: inventoryItem.id}, inventoryItem)
   }
 
-  _deleteInventoryItem = () => {}
+  _deleteInventoryItem = async id => {
+    deleteOne("inventoryItems", id)
+  }
 }
 
 export {_createInventoryItem}
