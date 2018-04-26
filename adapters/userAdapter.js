@@ -1,4 +1,9 @@
-import { find, findOne, insertOne } from './databaseAdapter'
+import {
+  find,
+  findOne,
+  insertOne,
+  updateOne
+} from './databaseAdapter'
 
 let findUserById
 let findUserByUsername
@@ -54,7 +59,9 @@ if(process.env.NODE_ENV === 'dev'){
 
   hashPassword = word => word
 
-  saveUser = () => {}
+  saveUser = async user => {
+    updateOne({id: user.id}, user)
+  }
 
   _deleteUser = () => {}
 }

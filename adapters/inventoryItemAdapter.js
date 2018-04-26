@@ -1,4 +1,9 @@
-import { find, findOne, insertOne } from './databaseAdapter'
+import {
+  find,
+  findOne,
+  insertOne,
+  updateOne
+} from './databaseAdapter'
 
 let _createInventoryItem
 let addToInventory
@@ -43,7 +48,9 @@ if(process.env.NODE_ENV === 'dev'){
     return inventoryItem
   }
 
-  saveInventoryItem = () => {}
+  saveInventoryItem = inventoryItem => {
+    updateOne({id: inventoryItem.id}, inventoryItem)
+  }
 
   _deleteInventoryItem = () => {}
 }

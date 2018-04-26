@@ -38,3 +38,14 @@ export const insertOne = async (collectionName, doc) => {
     console.log(r.insertedCount)
   })
 }
+
+export const updateOne = async (collectionName, filter, updateObj) => {
+  const collection = db.collection(collectionName)
+  collection.updateOne(filter, {$set: updateObj}, null, (err, r) => {
+    if(err){
+      throw new Error("updateOne failed!")
+    }
+
+    console.log(r.insertedCount)
+  })
+}
