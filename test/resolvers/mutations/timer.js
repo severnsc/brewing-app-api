@@ -11,22 +11,22 @@ describe('Timer resolvers', () => {
     const userId = "1"
     const duration = 1000
     const intervalDuration = 500
-    const timer = createTimer('_', { userId, duration, intervalDuration })
+    const timerPromise = createTimer('_', { userId, duration, intervalDuration })
 
     it('should return an object', () => {
-      expect(timer).to.be.an('object')
+      return expect(timerPromise).to.eventually.be.an('object')
     })
 
     it('should have userId property equal to userId arg', () => {
-      expect(timer.userId).to.equal(userId)
+      return expect(timerPromise).to.eventually.have.property('userId').equal(userId)
     })
 
     it('should have a duration property equal to duration arg', () => {
-      expect(timer.duration).to.equal(duration)
+      return expect(timerPromise).to.eventually.have.property('duration').equal(duration)
     })
 
     it('should have an intervalDuration property equal to intervalDuration arg', () => {
-      expect(timer.intervalDuration).to.equal(intervalDuration)
+      return expect(timerPromise).to.eventually.have.property("intervalDuration").equal(intervalDuration)
     })
 
   })

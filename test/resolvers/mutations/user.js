@@ -8,22 +8,22 @@ describe('user mutation resolvers', () => {
 
     const createUser = Resolvers.Mutation.createUser
 
-    const user = createUser('_', {userName: "user", password: "password"})
+    const userPromise = createUser('_', {userName: "user", password: "password"})
 
     it('should return an object', () => {
-      expect(user).to.be.an('object')
+      return expect(userPromise).to.eventually.be.an('object')
     })
 
     it('should have a string id property', () => {
-      expect(user.id).to.be.a('string')
+      return expect(userPromise).to.eventually.have.property('id').be.a('string')
     })
 
     it('should have a userName equal to userName arg', () => {
-      expect(user.userName).to.equal("user")
+      return expect(userPromise).to.eventually.have.property('userName').equal("user")
     })
 
     it('should have string hashedPassword prop', () => {
-      expect(user.hashedPassword).to.be.a('string')
+      expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
     })
 
   })

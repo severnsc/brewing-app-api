@@ -10,38 +10,34 @@ describe('inventory mutations', () => {
 
     const createInventory = Resolvers.Mutation.createInventory
 
-    const inventory = createInventory('_', {name:"test inventory", userId:"1"})
+    const inventoryPromise = createInventory('_', {name:"test inventory", userId:"1"})
 
     it('should return an object', () => {
-      expect(inventory).to.be.an('object')
+      return expect(inventoryPromise).to.eventually.be.an('object')
     })
 
     it('should have a string name property', () => {
-      expect(inventory).to.have.property('name')
-      expect(inventory.name).to.be.a('string')
+      return expect(inventoryPromise).to.eventually.have.property('name').be.a('string')
     })
 
     it('should have name equal to name arg', () => {
-      expect(inventory.name).to.equal('test inventory')
+      return expect(inventoryPromise).to.eventually.have.property('name').equal('test inventory')
     })
 
     it('should have string userId property', () => {
-      expect(inventory).to.have.property('userId')
-      expect(inventory.userId).to.be.a('string')
+      return expect(inventoryPromise).to.eventually.have.property('userId').be.a('string')
     })
 
     it('should have userId property equal userId arg', () => {
-      expect(inventory.userId).to.equal('1')
+      return expect(inventoryPromise).to.eventually.have.property('userId').equal("1")
     })
 
     it('should have string id property', () => {
-      expect(inventory).to.have.property('id')
-      expect(inventory.id).to.be.a('string')
+      return expect(inventoryPromise).to.eventually.have.property('id').be.a('string')
     })
 
     it('should have array items property', () => {
-      expect(inventory).to.have.property('items')
-      expect(inventory.items).to.be.an('array')
+      return expect(inventoryPromise).to.eventually.have.property('items').be.an('array')
     })
 
   })

@@ -9,66 +9,66 @@ describe('InventoryItem resolvers', () => {
     const createInventoryItem = Resolvers.Mutation.createInventoryItem
 
     const date = new Date()
-    const updatedInventoryItem = createInventoryItem("_", {inventoryId: "1", object: {name:'object'}, quantityUnit: "lbs", currentQuantity: 10, reorderQuantity: 10, reorderThreshold: 5, costUnit: "USD", unitCost: 1, reorderCost: 10, lastReorderDate: null, deliveryDate: null, createdAt: date, updatedAt: date})
+    const updatedInventoryItemPromise = createInventoryItem("_", {inventoryId: "1", object: {name:'object'}, quantityUnit: "lbs", currentQuantity: 10, reorderQuantity: 10, reorderThreshold: 5, costUnit: "USD", unitCost: 1, reorderCost: 10, lastReorderDate: null, deliveryDate: null, createdAt: date, updatedAt: date})
 
     it('should return an object', () => {
-      expect(updatedInventoryItem).to.be.an('object')
+      return expect(updatedInventoryItemPromise).to.eventually.be.an('object')
     })
 
     it('should have string id property', () => {
-      expect(updatedInventoryItem.id).to.be.a('string')
+      return expect(updatedInventoryItemPromise).to.eventually.have.property('id').be.a('string')
     })
 
     it('should have inventoryId property equal to inventoryId arg', () => {
-      expect(updatedInventoryItem.inventoryId).to.equal('1')
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("inventoryId").equal('1')
     })
 
     it('should have object property equal to object arg', () => {
-      expect(updatedInventoryItem.object).to.deep.equal({name: "object"})
+      return expect(updatedInventoryItemPromise).to.eventually.have.property('object').deep.equal({name: "object"})
     })
 
     it('should have quantityUnit property equal to quantityUnit arg', () => {
-      expect(updatedInventoryItem.quantityUnit).to.equal('lbs')
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("quantityUnit").equal('lbs')
     })
 
     it('should have currentQuantity property equal to currentQuantity arg', () => {
-      expect(updatedInventoryItem.currentQuantity).to.equal(10)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("currentQuantity").equal(10)
     })
 
     it('should have reorderQuantity property equal to reorderQuantity arg', () => {
-      expect(updatedInventoryItem.reorderQuantity).to.equal(10)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("reorderQuantity").equal(10)
     })
 
     it('should have reorderThreshold property equal to reorderThreshold arg', () => {
-      expect(updatedInventoryItem.reorderThreshold).to.equal(5)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("reorderThreshold").equal(5)
     })
 
     it('should have costUnit property equal to costUnit arg', () => {
-      expect(updatedInventoryItem.costUnit).to.equal("USD")
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("costUnit").equal("USD")
     })
 
     it('should have unitCost property equal to unitCost arg', () => {
-      expect(updatedInventoryItem.unitCost).to.equal(1)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("unitCost").equal(1)
     })
 
     it('should have reorderCost property equal to reorderCost arg', () => {
-      expect(updatedInventoryItem.reorderCost).to.equal(10)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("reorderCost").equal(10)
     })
 
     it('should have lastReorderDate property equal to null', () => {
-      expect(updatedInventoryItem.lastReorderDate).to.be.a('null')
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("lastReorderDate").be.a('null')
     })
 
     it('should have deliveryDate property equal to null', () => {
-      expect(updatedInventoryItem.deliveryDate).to.be.a('null')
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("deliveryDate").be.a('null')
     })
 
     it('should have createdAt property equal createdAt arg', () => {
-      expect(updatedInventoryItem.createdAt).to.equal(date)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("createdAt").equal(date)
     })
 
     it('should have updatedAt property equal updatedAt arg', () => {
-      expect(updatedInventoryItem.updatedAt).to.equal(date)
+      return expect(updatedInventoryItemPromise).to.eventually.have.property("updatedAt").equal(date)
     })
 
   })
