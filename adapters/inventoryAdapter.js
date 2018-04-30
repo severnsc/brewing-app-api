@@ -61,12 +61,12 @@ if(process.env.NODE_ENV === 'dev'){
   _deleteInventory = () => {}
 }else{
   findInventoriesByUserId = async userId => {
-    inventories = await find('inventories', {userId})
+    const inventories = await find('inventories', {userId})
     return inventories
   }
 
   findInventoryById = async id => {
-    inventory = await findOne('inventories', {id})
+    const inventory = await findOne('inventories', {id})
     return inventory
   }
 

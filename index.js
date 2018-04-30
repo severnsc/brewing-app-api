@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import schema from './schema'
 require('dotenv').config()
-import { dbConnection, findOne } from './adapters/databaseAdapter'
+import { dbConnection } from './adapters/databaseAdapter'
 
 const app = express()
 
