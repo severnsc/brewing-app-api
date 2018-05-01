@@ -23,34 +23,23 @@ passport.use(new LocalStrategy(
 
 const app = express()
 
-const ensureAuthenticated = (req, res, next) => {
-  if(req.isAuthenticated()){
-    return next()
-  }else{
-    res.sendStatus(401)
-  }
-}
-
-app.use('/graphql', bodyParser.json(), ensureAuthenticated, graphqlExpress({ schema }))
-
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
-
 app.use(bodyParser.json())
 app.use(session({ 
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: false,
-  cookie: {secure: process.env.SECURE}
+  saveUninitialized: false
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, done) => {
+  console.log("serializeUser")
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
+  console.log("deserializeUser called!")
   getUser(id).then(user => {
     done(null, user)
   }).catch(e => {
@@ -58,8 +47,29 @@ passport.deserializeUser((id, done) => {
   })
 });
 
-app.post('/login', passport.authenticate('local'), (req, res) => {
-  res.status(200).send(req.user)
+const ensureAuth = (req, res, next) => {
+  if(req.isAuthenticated()){
+    next()
+  }else{
+    res.sendStatus(401)
+  }
+}
+
+app.use('/graphql', ensureAuth, bodyParser.json(), graphqlExpress({ schema }))
+
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
+
+app.get('/', (req, res) => {
+  res.json({user: req.user})
 })
+
+app.get('/login', (req, res) => {
+  res.status(200).send("Please login")
+})
+
+app.post('/login', passport.authenticate('local', { 
+  successRedirect: '/',
+  failureRedirect: '/login'
+}))
 
 export default app
