@@ -55,7 +55,9 @@ const ensureAuth = (req, res, next) => {
   }
 }
 
-app.use('/graphql', ensureAuth, bodyParser.json(), graphqlExpress({ schema }))
+app.use('/graphql', ensureAuth, bodyParser.json(), graphqlExpress(req => {
+  return { schema, context: {user: req.user} }
+}))
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
