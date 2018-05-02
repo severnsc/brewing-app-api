@@ -13,3 +13,6 @@ To see documentation and test queries/mutations:
 
 To run queries and mutations:
 `localhost:PORT/graphql`
+
+# Todo
+- Setup production ready session store
