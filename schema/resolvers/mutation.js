@@ -35,7 +35,7 @@ export default {
   },
 
   updateUser: (_, { id, userName, password}, ctx) => {
-    if(ctx.user.id === id){
+    if(ctx && ctx.user.id === id){
       let updatePropsObj = {}
     
       if(userName){
@@ -60,7 +60,7 @@ export default {
   },
 
   deleteUser: (_, { id }, ctx) => {
-    if(ctx.user.id === id){
+    if(ctx && ctx.user.id === id){
       const deletedUser = deleteUser(id)
       return deletedUser
     }else{
@@ -69,7 +69,7 @@ export default {
   },
 
   createInventory: (_, { name, userId }, ctx) => {
-    if(ctx.user.id === userId){
+    if(ctx && ctx.user.id === userId){
       const inventory = createInventory(name, userId)
       return inventory
     }else{
@@ -79,7 +79,7 @@ export default {
 
   updateInventory: (_, { id, name }, ctx) => {
     return getInventory(id).then(inventory => {
-      if(ctx.user.id === inventory.userId){
+      if(ctx && ctx.user.id === inventory.userId){
         const updatedInventory = updateInventory(id, {name})
         return updatedInventory
       }else{
@@ -90,7 +90,7 @@ export default {
 
   deleteInventory: (_, { id }, ctx) => {
     return getInventory(id).then(inventory => {
-      if(ctx.user.id === inventory.userId){
+      if(ctx && ctx.user.id === inventory.userId){
         const deletedInventory = deleteInventory(id)
         return deletedInventory
       }else{
@@ -101,7 +101,7 @@ export default {
 
   createInventoryItem: (_, { inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt }, ctx) => {
     return getInventory(inventoryId).then(inventory => {
-      if(ctx.user.id === inventory.userId){
+      if(ctx && ctx.user.id === inventory.userId){
         const inventoryItem = createInventoryItem(inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt)
         return inventoryItem
       }else{
@@ -112,7 +112,7 @@ export default {
 
   updateInventoryItem: (_, { id, inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate }, ctx) => {
     return getInventory(inventoryId).then(inventory => {
-      if(ctx.user.id === inventory.userId){
+      if(ctx && ctx.user.id === inventory.userId){
         let updatePropsObj = {}
 
         const args = [{inventoryId}, {object}, {quantityUnit}, {currentQuantity}, {reorderQuantity}, {reorderThreshold}, {costUnit}, {unitCost}, {reorderCost}, {lastReorderDate}, {deliveryDate}]
@@ -141,8 +141,8 @@ export default {
 
   deleteInventoryItem: (_, { id }, ctx) => {
     return getInventoryItem(id).then(inventoryItem => {
-      return getInventory(inventoryItem.invetoryId).then(inventory => {
-        if(ctx.user.id === inventory.userId){
+      return getInventory(inventoryItem.inventoryId).then(inventory => {
+        if(ctx && ctx.user.id === inventory.userId){
           const deletedInventoryItem = deleteInventoryItem(id)
           return deletedInventoryItem
         }else{
@@ -153,7 +153,7 @@ export default {
   },
 
   createTimer: (_, { userId, duration, intervalDuration }, ctx) => {
-    if(ctx.user.id === userId){
+    if(ctx && ctx.user.id === userId){
       const timer = createTimer(userId, duration, intervalDuration)
       return timer
     }else{
@@ -163,7 +163,7 @@ export default {
 
   startTimer: (_, { id }, ctx) => {
     return getTimer(id).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         const startedTimer = startTimer(id)
         return startedTimer
       }else{
@@ -174,7 +174,7 @@ export default {
 
   stopTimer: (_, { id }, ctx) => {
     return getTimer(id).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         const stoppedTimer = stopTimer(id)
         return stoppedTimer
       }else{
@@ -185,7 +185,7 @@ export default {
 
   decrementTimer: (_, { id }, ctx) => {
     return getTimer(id).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         const decrementedTimer = decrementTimer(id)
         return decrementedTimer
       }else{
@@ -196,7 +196,7 @@ export default {
 
   resetTimer: (_, { id }, ctx) => {
     return getTimer(id).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         const resetedTimer = resetTimer(id)
         return resetedTimer
       }else{
@@ -207,7 +207,7 @@ export default {
 
   updateTimer: (_, { id, duration, intervalDuration }, ctx) => {
     return getTimer(id).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         let updatePropsObj = {}
 
         if(duration){
@@ -228,7 +228,7 @@ export default {
 
   deleteTimer: (_, { id }, ctx) => {
     return getTimer(id).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         const timer = deleteTimer(id)
         return timer
       }else{
@@ -239,7 +239,7 @@ export default {
 
   createTimerAlert: (_, { timerId, activationTime, message }, ctx) => {
     return getTimer(timerId).then(timer => {
-      if(ctx.user.id === timer.userId){
+      if(ctx && ctx.user.id === timer.userId){
         const timerAlert = createTimerAlert(timerId, activationTime, message)
         return timerAlert
       }else{
@@ -249,35 +249,37 @@ export default {
   },
 
   updateTimerAlert: (_, { id, timerId, activationTime, message }, ctx) => {
-    return getTimer(timerId).then(timer => {
-      if(ctx.user.id === timer.userId){
-        let updatePropsObj = {}
+    return getTimerAlert(id).then(timerAlert => {
+      return getTimer(timerAlert.timerId).then(timer => {
+        if(ctx && ctx.user.id === timer.userId){
+          let updatePropsObj = {}
 
-        if(timerId){
-          updatePropsObj.timerId = timerId
+          if(timerId){
+            updatePropsObj.timerId = timerId
+          }
+
+          if(typeof activationTime === 'number'){
+            updatePropsObj.activationTime = activationTime
+          }
+
+          if(message){
+            updatePropsObj.message = message
+          }
+
+          const timerAlert = updateTimerAlert(id, updatePropsObj)
+
+          return timerAlert
+        }else{
+          return null
         }
-
-        if(typeof activationTime === 'number'){
-          updatePropsObj.activationTime = activationTime
-        }
-
-        if(message){
-          updatePropsObj.message = message
-        }
-
-        const timerAlert = updateTimerAlert(id, updatePropsObj)
-
-        return timerAlert
-      }else{
-        return null
-      }
+      }).catch(e => e)
     }).catch(e => e)
   },
 
   activateTimerAlert: (_, { id }, ctx) => {
     return getTimerAlert(id).then(timerAlert => {
       return getTimer(timerAlert.timerId).then(timer => {
-        if(ctx.user.id === timer.userId){
+        if(ctx && ctx.user.id === timer.userId){
           const activatedTimerAlert = activateTimerAlert(id)
           return activatedTimerAlert
         }else{
@@ -290,7 +292,7 @@ export default {
   deleteTimerAlert: (_, { id }, ctx) => {
     return getTimerAlert(id).then(timerAlert => {
       return getTimer(timerAlert.timerId).then(timer => {
-        if(ctx.user.id === timer.userId){
+        if(ctx && ctx.user.id === timer.userId){
           const deletedTimerAlert = deleteTimerAlert(id)
           return deletedTimerAlert
         }else{

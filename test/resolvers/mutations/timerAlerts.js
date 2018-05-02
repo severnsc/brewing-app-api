@@ -11,7 +11,7 @@ describe('timer alert mutation resolvers', () => {
     const timerId = "1"
     const activationTime = 1000
     const message = "hello"
-    const timerAlertPromise = createTimerAlert('_', { timerId, activationTime, message })
+    const timerAlertPromise = createTimerAlert('_', { timerId, activationTime, message }, {user: {id: "1"}})
 
     it('should return an object', () => {
       return expect(timerAlertPromise).to.eventually.be.an('object')
@@ -19,7 +19,7 @@ describe('timer alert mutation resolvers', () => {
 
     it('should generate unique ids', async () => {
       const timerAlert = await timerAlertPromise
-      return expect(createTimerAlert('_', { timerId, activationTime, message })).to.eventually.have.property('id').not.equal(timerAlert.id)
+      return expect(createTimerAlert('_', { timerId, activationTime, message }, {user: {id: "1"}})).to.eventually.have.property('id').not.equal(timerAlert.id)
     })
 
     it('should have timerId prop equal to timerId arg', () => {
@@ -48,30 +48,30 @@ describe('timer alert mutation resolvers', () => {
     const activationTime = 0
     const message = "this is an updated message"
 
-    const timerAlertPromise = updateTimerAlert("1", timerId, activationTime, message)
+    const timerAlertPromise = updateTimerAlert('_', {id: "1", timerId, activationTime, message}, {user: {id: "1"}})
 
     it('should return an object', () => {
-      expect(timerAlertPromise).to.eventually.be.an('object')
+      return expect(timerAlertPromise).to.eventually.be.an('object')
     })
 
     it('should have id equal to id arg', () => {
-      expect(timerAlertPromise).to.eventually.have.property('id').equal("1")
+      return expect(timerAlertPromise).to.eventually.have.property('id').equal("1")
     })
 
     it('should have timerId equal to timerId arg', () => {
-      expect(timerAlertPromise).to.eventually.have.property('timerId').equal(timerId)
+      return expect(timerAlertPromise).to.eventually.have.property('timerId').equal(timerId)
     })
 
     it('should have activationTime equal to activationTime arg', () => {
-      expect(timerAlertPromise).to.eventually.have.property('activationTime').equal(activationTime)
+      return expect(timerAlertPromise).to.eventually.have.property('activationTime').equal(activationTime)
     })
 
     it('should have message equal to message arg', () => {
-      expect(timerAlertPromise).to.eventually.have.property('message').equal(message)
+      return expect(timerAlertPromise).to.eventually.have.property('message').equal(message)
     })
 
     it('should have activated equal to false', () => {
-      expect(timerAlertPromise).to.eventually.have.property('activated').equal(false)
+      return expect(timerAlertPromise).to.eventually.have.property('activated').equal(false)
     })
 
     describe('when only timerId is non-null', () => {
@@ -79,18 +79,18 @@ describe('timer alert mutation resolvers', () => {
       const timerId = "2"
       const activationTime = null
       const message = null
-      const otherTimerAlertPromise = updateTimerAlert("1", timerId, activationTime, message)
+      const otherTimerAlertPromise = updateTimerAlert('_', {id: "1", timerId, activationTime, message}, {user: {id: "1"}})
 
       it('should update timerId field to equal timerId arg', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('timerId').equal("2")
+        return expect(otherTimerAlertPromise).to.eventually.have.property('timerId').equal("2")
       })
 
       it('should not update the activationTime field', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('activationTime').not.be.a('null')
+        return expect(otherTimerAlertPromise).to.eventually.have.property('activationTime').not.be.a('null')
       })
 
       it('should not update the message field', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('message').not.be.a('null')
+        return expect(otherTimerAlertPromise).to.eventually.have.property('message').not.be.a('null')
       })
 
     })
@@ -100,18 +100,18 @@ describe('timer alert mutation resolvers', () => {
       const timerId = null
       const activationTime = 10
       const message = null
-      const otherTimerAlertPromise = updateTimerAlert("1", timerId, activationTime, message)
+      const otherTimerAlertPromise = updateTimerAlert('_', { id: "1", timerId, activationTime, message }, {user: {id: "1"}})
 
       it('should update activationTime field to equal activationTime arg', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('activationTime').equal(activationTime)
+        return expect(otherTimerAlertPromise).to.eventually.have.property('activationTime').equal(activationTime)
       })
 
       it('should not update the timerId field', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('timerId').not.be.a('null')
+        return expect(otherTimerAlertPromise).to.eventually.have.property('timerId').not.be.a('null')
       })
 
       it('should not update the message field', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('message').not.be.a('null')
+        return expect(otherTimerAlertPromise).to.eventually.have.property('message').not.be.a('null')
       })
 
     })
@@ -121,18 +121,18 @@ describe('timer alert mutation resolvers', () => {
       const timerId = null
       const activationTime = null
       const message = "updated!"
-      const otherTimerAlertPromise = updateTimerAlert("1", timerId, activationTime, message)
+      const otherTimerAlertPromise = updateTimerAlert('_', {id: "1", timerId, activationTime, message}, {user: {id: "1"}})
 
       it('should update message field to equal message arg', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('message').equal(message)
+        return expect(otherTimerAlertPromise).to.eventually.have.property('message').equal(message)
       })
 
       it('should not update the timerId field', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('timerId').not.be.a('null')
+        return expect(otherTimerAlertPromise).to.eventually.have.property('timerId').not.be.a('null')
       })
 
       it('should not update the activationTime field', () => {
-        expect(otherTimerAlertPromise).to.eventually.have.property('activationTime').not.be.a('null')
+        return expect(otherTimerAlertPromise).to.eventually.have.property('activationTime').not.be.a('null')
       })
 
     })
@@ -143,18 +143,18 @@ describe('timer alert mutation resolvers', () => {
 
     const activateTimerAlert = Resolvers.Mutation.activateTimerAlert
 
-    const timerAlertPromise = activateTimerAlert('_', {id: "1"})
+    const timerAlertPromise = activateTimerAlert('_', {id: "1"}, {user: {id: "1"}})
 
     it('should return an object', () => {
-      expect(timerAlertPromise).to.eventually.be.an('object')
+      return expect(timerAlertPromise).to.eventually.be.an('object')
     })
 
     it('should have id prop equal to id arg', () => {
-      expect(timerAlertPromise).to.eventually.have.property('id').equal("1")
+      return expect(timerAlertPromise).to.eventually.have.property('id').equal("1")
     })
 
     it('should have activated prop equal to true', () => {
-      expect(timerAlertPromise).to.eventually.have.property('activated').equal(true)
+      return expect(timerAlertPromise).to.eventually.have.property('activated').equal(true)
     })
 
   })
@@ -163,7 +163,7 @@ describe('timer alert mutation resolvers', () => {
 
     const deleteTimerAlert = Resolvers.Mutation.deleteTimerAlert
 
-    const timerAlertPromise = deleteTimerAlert('_', {id: "1"})
+    const timerAlertPromise = deleteTimerAlert('_', {id: "1"}, {user: {id: "1"}})
 
     it('should return null', () => {
       return expect(timerAlertPromise).to.eventually.be.a('null')

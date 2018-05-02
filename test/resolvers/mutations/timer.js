@@ -11,7 +11,7 @@ describe('Timer resolvers', () => {
     const userId = "1"
     const duration = 1000
     const intervalDuration = 500
-    const timerPromise = createTimer('_', { userId, duration, intervalDuration })
+    const timerPromise = createTimer('_', { userId, duration, intervalDuration }, {user: {id: "1"}})
 
     it('should return an object', () => {
       return expect(timerPromise).to.eventually.be.an('object')
@@ -29,6 +29,13 @@ describe('Timer resolvers', () => {
       return expect(timerPromise).to.eventually.have.property("intervalDuration").equal(intervalDuration)
     })
 
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = createTimer('_', { userId, duration, intervalDuration }, null)
+        return expect(nullTimerPromise).to.be.a('null')
+      })
+    })
+
   })
 
   describe('startTimer', () => {
@@ -36,7 +43,7 @@ describe('Timer resolvers', () => {
     const startTimer = Resolvers.Mutation.startTimer
 
     const id = "1"
-    const timerPromise = startTimer('_', { id })
+    const timerPromise = startTimer('_', { id }, {user: {id: "1"}})
 
     it('should return an object', () => {
       return expect(timerPromise).to.eventually.be.an('object')
@@ -50,6 +57,13 @@ describe('Timer resolvers', () => {
       return expect(timerPromise).to.eventually.have.property('isRunning').equal(true)
     })
 
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = startTimer('_', { id }, null)
+        return expect(nullTimerPromise).to.eventually.be.a('null')
+      })
+    })
+
   })
 
   describe('stopTimer', () => {
@@ -57,7 +71,7 @@ describe('Timer resolvers', () => {
     const stopTimer = Resolvers.Mutation.stopTimer
 
     const id = "1"
-    const timerPromise = stopTimer('_', {id})
+    const timerPromise = stopTimer('_', {id}, {user: {id: "1"}})
 
     it('should reutrn an object', () => {
       return expect(timerPromise).to.eventually.be.an('object')
@@ -71,13 +85,20 @@ describe('Timer resolvers', () => {
       return expect(timerPromise).to.eventually.have.property('isRunning').equal(false)
     })
 
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = stopTimer('_', { id }, null)
+        return expect(nullTimerPromise).to.eventually.be.a('null')
+      })
+    })
+
   })
 
   describe('decrementTimer', () => {
 
     const decrementTimer = Resolvers.Mutation.decrementTimer
 
-    const timerPromise = decrementTimer('_', {id: "1"})
+    const timerPromise = decrementTimer('_', {id: "1"}, {user: {id: "1"}})
 
     it('should reutrn an object', () => {
       return expect(timerPromise).to.eventually.be.an('object')
@@ -91,13 +112,20 @@ describe('Timer resolvers', () => {
       expect(timerPromise).to.eventually.have.property('remainingDuration').equal(500)
     })
 
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = decrementTimer('_', { id: "1" }, null)
+        return expect(nullTimerPromise).to.eventually.be.a('null')
+      })
+    })
+
   })
 
   describe('resetTimer', () => {
 
     const resetTimer = Resolvers.Mutation.resetTimer
 
-    const timerPromise = resetTimer('_', {id: "1"})
+    const timerPromise = resetTimer('_', {id: "1"}, {user: {id: "1"}})
 
     it('should be an object', () => {
       expect(timerPromise).to.eventually.be.an('object')
@@ -109,6 +137,13 @@ describe('Timer resolvers', () => {
 
     it('should have a remainingDuration equal to duration', () => {
       expect(timerPromise).to.eventually.have.property('remainingDuration').equal(1000)
+    })
+
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = resetTimer('_', { id: "1" }, null)
+        return expect(nullTimerPromise).to.eventually.be.a('null')
+      })
     })
 
   })
@@ -131,7 +166,7 @@ describe('Timer resolvers', () => {
 
     const updateTimer = Resolvers.Mutation.updateTimer
 
-    const timerPromise = updateTimer('_', {id: "1", duration: updatePropsObj.duration, intervalDuration: updatePropsObj.intervalDuration})
+    const timerPromise = updateTimer('_', {id: "1", duration: updatePropsObj.duration, intervalDuration: updatePropsObj.intervalDuration}, {user: {id: "1"}})
 
     it('should be an object', () => {
       expect(timerPromise).to.eventually.be.an('object')
@@ -150,16 +185,30 @@ describe('Timer resolvers', () => {
       expect(timerPromise).to.eventually.deep.equal(Object.assign({}, testTimer, updatePropsObj))
     })
 
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = updateTimer('_', {id: "1", duration: updatePropsObj.duration, intervalDuration: updatePropsObj.intervalDuration}, null)
+        return expect(nullTimerPromise).to.eventually.be.a('null')
+      })
+    })
+
   })
 
   describe('deleteTimer', () => {
 
     const deleteTimer = Resolvers.Mutation.deleteTimer
 
-    const timerPromise = deleteTimer('_', { id: "1" })
+    const timerPromise = deleteTimer('_', { id: "1" }, {user: {id: "1"}})
 
     it('should return null', () => {
       return expect(timerPromise).to.eventually.be.a('null')
+    })
+
+    describe('when there is no user on context', () => {
+      it('should return null', () => {
+        const nullTimerPromise = deleteTimer('_', { id: "1" }, null)
+        return expect(nullTimerPromise).to.eventually.be.a('null')
+      })
     })
 
   })

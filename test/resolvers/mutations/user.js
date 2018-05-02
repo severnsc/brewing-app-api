@@ -32,7 +32,7 @@ describe('user mutation resolvers', () => {
 
     const updateUser = Resolvers.Mutation.updateUser
 
-    const userPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"})
+    const userPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"}, {user: {id: "1"}})
 
     it('should return an object', () => {
       expect(userPromise).to.eventually.be.an('object')
@@ -48,6 +48,13 @@ describe('user mutation resolvers', () => {
 
     it('should have string hashedPassword', () => {
       expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
+    })
+
+    describe('when context has no user', () => {
+      it('should return null', () => {
+        const nullUserPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"}, null)
+        expect(nullUserPromise).to.be.a('null')
+      })
     })
 
   })
@@ -76,10 +83,17 @@ describe('user mutation resolvers', () => {
 
     const deleteUser = Resolvers.Mutation.deleteUser
 
-    const userPromise = deleteUser('_', {id: "1"})
+    const userPromise = deleteUser('_', {id: "1"}, {user: {id: "1"}})
 
     it('should return null', () => {
       return expect(userPromise).to.eventually.be.a('null')
+    })
+
+    describe('when context has no user', () => {
+      it('should return null', () => {
+        const nullUserPromise = deleteUser('_', {id: "1"}, null)
+        expect(nullUserPromise).to.be.a('null')
+      })
     })
 
   })

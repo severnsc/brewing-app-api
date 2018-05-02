@@ -73,6 +73,7 @@ export const getInventoriesByUserId = core.getInventoriesByUserIdUseCase(userExi
 export const getInventory = core.getInventoryUseCase(findInventoryById)
 
 //Timer Alert
+export const getTimerAlert = core.getTimerAlertUseCase(findTimerAlertById)
 export const createTimerAlert = core.createTimerAlertUseCase(_createTimerAlert)
 export const updateTimerAlert = core.updateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)
 export const activateTimerAlert = core.activateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)(sendMessage)
@@ -80,6 +81,7 @@ export const deleteTimerAlert = core.deleteTimerAlertUseCase(_deleteTimerAlert)
 export const getTimerAlertsByTimerId = core.getTimerAlertsByTimerIdUseCase(findTimerAlertsByTimerId)
 
 //Inventory Item
+export const getInventoryItem = core.getInventoryItemUseCase(findInventoryItemById)
 export const createInventoryItem = core.createInventoryItemUseCase(_createInventoryItem)(addToInventory)
 export const updateInventoryItem = core.updateInventoryItemUseCase(findInventoryItemById)(saveInventoryItem)
 export const deleteInventoryItem = core.deleteInventoryItemUseCase(_deleteInventoryItem)
