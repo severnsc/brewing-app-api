@@ -5,6 +5,7 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import schema from './schema'
 import { authenticateUser, getUser } from './compose'
 import passport from 'passport'
+const MongoDBStore = require('connect-mongodb-session')(session)
 const LocalStrategy = require('passport-local').Strategy
 
 passport.use(new LocalStrategy(
@@ -23,11 +24,24 @@ passport.use(new LocalStrategy(
 
 const app = express()
 
+const store = new MongoDBStore({
+  uri: process.env.DB_URL,
+  databaseName: 'brewing-app-db',
+  collection: "sessions"
+})
+
+store.on('error', error => {
+  console.log(error)
+})
+
+const secure = process.env.NODE_ENV !== 'dev'
 app.use(bodyParser.json())
 app.use(session({ 
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: store,
+  secure: secure
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
