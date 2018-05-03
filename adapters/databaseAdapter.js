@@ -5,15 +5,11 @@ const url = process.env.DB_URL
 let db
 
 export const dbConnection = cb => {
-  MongoClient.connect(url, (err, _db) => {
-    if(err){
-      console.log(err)
-    }else{
-      db = _db
-      console.log("Connected Successfully!")
-      cb()
-    }
-  })
+  MongoClient.connect(url).then(client => {
+    console.log("Connected to database!")
+    db = client.db("brewing-app-db")
+    cb()
+  }).catch(e => e)
 }
 
 export const findOne = async (collectionName, searchObj) => {

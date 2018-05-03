@@ -5,6 +5,8 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import schema from './schema'
 import { authenticateUser, getUser } from './compose'
 import passport from 'passport'
+import cors from 'cors'
+import { isUsernameUnique } from './adapters/userAdapter'
 const MongoDBStore = require('connect-mongodb-session')(session)
 const LocalStrategy = require('passport-local').Strategy
 
@@ -46,6 +48,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors())
 
 passport.serializeUser((user, done) => {
   console.log("serializeUser")
@@ -84,7 +87,7 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/isUsernameUnique', (req, res) => {
-  isUsernameUnique(req.username).then(bool => {
+  isUsernameUnique(req.body.username).then(bool => {
     res.status(200).send(bool)
   }).catch(e => res.status(500).send(e))
 })
