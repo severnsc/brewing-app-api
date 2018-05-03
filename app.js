@@ -83,6 +83,12 @@ app.get('/login', (req, res) => {
   res.status(200).send("Please login")
 })
 
+app.post('/isUsernameUnique', (req, res) => {
+  isUsernameUnique(req.username).then(bool => {
+    res.status(200).send(bool)
+  }).catch(e => res.status(500).send(e))
+})
+
 app.post('/login', passport.authenticate('local', { 
   successRedirect: '/',
   failureRedirect: '/login'

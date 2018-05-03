@@ -55,7 +55,10 @@ if(process.env.NODE_ENV === 'dev'){
     return user ? true : false
   }
 
-  isUsernameUnique = () => true
+  isUsernameUnique = async username => {
+    const user = await findOne('users', {username})
+    return user.userName ? false : true
+  }
 
   _createUser = async user => {
     insertOne('users', user)
