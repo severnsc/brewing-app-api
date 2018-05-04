@@ -3,7 +3,7 @@ import session from "express-session"
 import bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import schema from './schema'
-import { authenticateUser, getUser } from './compose'
+import { createUser, authenticateUser, getUser } from './compose'
 import passport from 'passport'
 import cors from 'cors'
 import { isUsernameUnique } from './adapters/userAdapter'
@@ -27,7 +27,7 @@ passport.use(new LocalStrategy(
 const app = express()
 
 const store = new MongoDBStore({
-  uri: process.env.DB_URL,
+  uri: process.env.LOCAL_DB_URL,
   databaseName: 'brewing-app-db',
   collection: "sessions"
 })
@@ -79,11 +79,20 @@ app.use('/graphql', ensureAuth, bodyParser.json(), graphqlExpress(req => {
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
 app.get('/', (req, res) => {
-  res.json({user: req.user})
+  res.sendStatus(200)
 })
 
 app.get('/login', (req, res) => {
   res.status(200).send("Please login")
+})
+
+app.post('/signup', (req, res) => {
+  createUser(req.body.username, req.body.password).then(user => {
+    req.login(user, err => {
+      if(err) res.sendStatus(500)
+      res.redirect('/')
+    })
+  })
 })
 
 app.post('/isUsernameUnique', (req, res) => {
