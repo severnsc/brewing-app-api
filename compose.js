@@ -6,6 +6,7 @@ import {
   userExists,
   saveUser,
   isUsernameUnique,
+  isEmailUnique,
   _createUser,
   _deleteUser,
   hashPassword
@@ -49,8 +50,8 @@ export { hashPassword }
 
 //User
 export const getUser = core.getUserUseCase(findUserById)
-export const createUser = core.createUserUseCase(isUsernameUnique)(_createUser)(hashPassword)
-export const updateUser = core.updateUserUseCase(findUserById)(saveUser)
+export const createUser = core.createUserUseCase(isUsernameUnique)(isEmailUnique)(_createUser)(hashPassword)
+export const updateUser = core.updateUserUseCase(findUserById)(isUsernameUnique)(isEmailUnique)(saveUser)
 export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)(hashPassword)
 export const deleteUser = core.deleteUserUseCase(_deleteUser)
 

@@ -10,6 +10,7 @@ let findUserById
 let findUserByUsername
 let userExists
 let isUsernameUnique
+let isEmailUnique
 let _createUser
 let hashPassword
 let saveUser
@@ -19,18 +20,22 @@ if(process.env.NODE_ENV === 'dev'){
   findUserById = id => ({
     id,
     userName: "test user",
-    hashedPassword: "hashedPassword"
+    hashedPassword: "hashedPassword",
+    email: "me@example.com"
   })
 
   findUserByUsername = userName => ({
     id: "1",
     userName,
-    hashedPassword: "password"
+    hashedPassword: "password",
+    email: "me@example.com"
   })
 
   userExists = id => true
 
   isUsernameUnique = () => true
+
+  isEmailUnique = () => true
 
   _createUser = () => {}
 
@@ -60,6 +65,11 @@ if(process.env.NODE_ENV === 'dev'){
     return user ? false : true
   }
 
+  isEmailUnique = async email => {
+    const user = await findOne('users', {email: email}).catch(e => e)
+    return user ? false : true
+  }
+
   _createUser = async user => {
     insertOne('users', user)
   }
@@ -79,6 +89,7 @@ export {findUserById}
 export {findUserByUsername}
 export {userExists}
 export {isUsernameUnique}
+export {isEmailUnique}
 export {_createUser}
 export {hashPassword}
 export {saveUser}

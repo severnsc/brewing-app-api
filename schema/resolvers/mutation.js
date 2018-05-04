@@ -28,13 +28,19 @@ import {
   deleteTimerAlert
 } from '../../compose'
 
+import validator from 'validator'
+
 export default {
-  createUser: (_, { userName, password }) => {
-    const user = createUser(userName, password)
+  createUser: (_, { userName, password, email }) => {
+    if(!validator.isEmail(email)){
+      throw new Error("Invalid email!")
+    }
+
+    const user = createUser(userName, password, email)
     return user
   },
 
-  updateUser: (_, { id, userName, password}, ctx) => {
+  updateUser: (_, { id, userName, password, email}, ctx) => {
     if(ctx && ctx.user.id === id){
       let updatePropsObj = {}
     
@@ -45,6 +51,13 @@ export default {
       if(password){
         const hashedPassword = hashPassword(password)
         updatePropsObj.hashedPassword = hashedPassword
+      }
+
+      if(email){
+        if(!validator.isEmail(email)){
+          throw new Error
+        }
+        updatePropsObj.email = email
       }
 
       const updatedUser = updateUser(id, updatePropsObj)

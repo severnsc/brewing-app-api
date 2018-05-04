@@ -8,7 +8,7 @@ describe('user mutation resolvers', () => {
 
     const createUser = Resolvers.Mutation.createUser
 
-    const userPromise = createUser('_', {userName: "user", password: "password"})
+    const userPromise = createUser('_', {userName: "user", password: "password", email: "me@email.com"})
 
     it('should return an object', () => {
       return expect(userPromise).to.eventually.be.an('object')
@@ -23,7 +23,17 @@ describe('user mutation resolvers', () => {
     })
 
     it('should have string hashedPassword prop', () => {
-      expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
+      return expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
+    })
+
+    describe('error path', () => {
+
+      describe('when email is not valid', () => {
+        it('should throw an error', () => {
+          expect(() => createUser("_", {userName: "user", password: "password", email: "me"})).to.throw()
+        })
+      })
+
     })
 
   })
@@ -32,29 +42,43 @@ describe('user mutation resolvers', () => {
 
     const updateUser = Resolvers.Mutation.updateUser
 
-    const userPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"}, {user: {id: "1"}})
+    const userPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword", email: "updated@email.com"}, {user: {id: "1"}})
 
     it('should return an object', () => {
-      expect(userPromise).to.eventually.be.an('object')
+      return expect(userPromise).to.eventually.be.an('object')
     })
 
     it('should have id prop equal to id arg', () => {
-      expect(userPromise).to.eventually.have.property('id').equal("1")
+      return expect(userPromise).to.eventually.have.property('id').equal("1")
     })
 
     it('should have userName prop equal to userName arg', () => {
-      expect(userPromise).to.eventually.have.property('userName').equal("Updated")
+      return expect(userPromise).to.eventually.have.property('userName').equal("Updated")
     })
 
     it('should have string hashedPassword', () => {
-      expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
+      return expect(userPromise).to.eventually.have.property('hashedPassword').be.a('string')
     })
 
-    describe('when context has no user', () => {
-      it('should return null', () => {
-        const nullUserPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"}, null)
-        expect(nullUserPromise).to.be.a('null')
+    it('should have an email prop equal to email arg', () => {
+      return expect(userPromise).to.eventually.have.property('email').equal("updated@email.com")
+    })
+
+    describe('error path', () => {
+
+      describe('when context has no user', () => {
+        it('should return null', () => {
+          const nullUserPromise = updateUser('_', {id: "1", userName: "Updated", password: "updatedPassword"}, null)
+          expect(nullUserPromise).to.be.a('null')
+        })
       })
+
+      describe('when email is not valid', () => {
+        it('should throw an error', () => {
+          expect(() => updateUser("_", {id: "1", userName: "Updated", password: "updatedPassword", email: "me"}, {user: {id: "1"}})).to.throw()
+        })
+      })
+
     })
 
   })

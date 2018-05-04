@@ -7,6 +7,7 @@ import { createUser, authenticateUser, getUser } from './compose'
 import passport from 'passport'
 import cors from 'cors'
 import { isUsernameUnique } from './adapters/userAdapter'
+import validator from 'validator'
 const MongoDBStore = require('connect-mongodb-session')(session)
 const LocalStrategy = require('passport-local').Strategy
 
@@ -87,12 +88,16 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-  createUser(req.body.username, req.body.password).then(user => {
-    req.login(user, err => {
-      if(err) res.sendStatus(500)
-      res.redirect('/')
-    })
-  })
+  if(!validator.isEmail(req.body.email)){
+    res.status(400).send("Email invalid!")
+  }else{
+    createUser(req.body.username, req.body.password, req.body.email).then(user => {
+      req.login(user, err => {
+        if(err) res.sendStatus(500)
+        res.redirect('/')
+      })
+    }).catch(e => e)
+  }
 })
 
 app.post('/isUsernameUnique', (req, res) => {

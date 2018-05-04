@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb'
 require('dotenv').config()
 
-const url = process.env.DB_URL
+const url = process.env.LOCAL_DB_URL
 let db
 
 export const dbConnection = cb => {
