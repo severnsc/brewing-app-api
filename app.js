@@ -3,11 +3,13 @@ import session from "express-session"
 import bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import schema from './schema'
-import { createUser, authenticateUser, getUser } from './compose'
+import { createUser, authenticateUser, getUser, updateUser } from './compose'
 import passport from 'passport'
 import cors from 'cors'
-import { isUsernameUnique } from './adapters/userAdapter'
+import { isUsernameUnique, findUserByUsername, findUserByEmail, hashPassword } from './adapters/userAdapter'
 import validator from 'validator'
+import { generateResetToken, hashToken, saveResetHash, findHash, deleteResetHash } from './adapters/tokenAdapter'
+import { sendRecoveryEmail } from './adapters/emailAdapter'
 const MongoDBStore = require('connect-mongodb-session')(session)
 const LocalStrategy = require('passport-local').Strategy
 
@@ -39,6 +41,7 @@ store.on('error', error => {
 
 const secure = process.env.NODE_ENV !== 'dev'
 app.use(bodyParser.json())
+app.use(express.static(__dirname + "/public/reset.html"))
 app.use(session({ 
   secret: process.env.SECRET,
   resave: false,
@@ -87,6 +90,47 @@ app.get('/login', (req, res) => {
   res.status(200).send("Please login")
 })
 
+app.get('/resetForm', (req, res) => {
+  res.sendFile(__dirname + "/public/reset.html")
+})
+
+app.get('/resetPassword', (req, res) => {
+  const token = decodeURIComponent(req.query.token)
+  const email = decodeURIComponent(req.query.email)
+  findHash(token).then(result => {
+    if(result){
+      if(result.email === email && Date.now() < result.expires){
+        res.redirect(`/resetForm?email=${req.query.email}&token=${req.query.token}`)
+      }else{
+        res.redirect('/')
+      }
+    }else{
+      res.redirect('/')
+    }
+  })
+})
+
+app.post('/resetForm', (req, res) => {
+  const token = decodeURIComponent(req.query.token)
+  const email = decodeURIComponent(req.query.email)
+  findHash(token).then(async result => {
+    if(result){
+      if(result.email === email && Date.now() < result.expires){
+        const user = await findUserByEmail(email).catch(e => e)
+        const hashedPassword = hashPassword(req.body.password)
+        await updateUser(user.id, {hashedPassword}).catch(e => e)
+        await deleteResetHash(token).catch(e => e)
+        console.log("password reset for user", user.userName)
+        res.redirect(result.callbackURL)
+      }else{
+        res.redirect('/')
+      }
+    }else{
+      res.redirect('/')
+    }
+  })
+})
+
 app.post('/signup', (req, res) => {
   if(!validator.isEmail(req.body.email)){
     res.status(400).send("Email invalid!")
@@ -98,6 +142,22 @@ app.post('/signup', (req, res) => {
       })
     }).catch(e => e)
   }
+})
+
+app.post('/sendRecoveryEmail', (req, res) => {
+  findUserByUsername(req.body.username).then(user => {
+    if(user){
+      const url = req.get('origin')
+      const resetToken = generateResetToken()
+      const tokenHash = hashToken(resetToken)
+      saveResetHash(user.email, tokenHash, url).then(() => {
+        sendRecoveryEmail(user.email, resetToken)
+        res.sendStatus(200)
+      }).catch(e => res.sendStatus(500))
+    }else{
+      res.sendStatus(200)
+    }
+  })
 })
 
 app.post('/isUsernameUnique', (req, res) => {

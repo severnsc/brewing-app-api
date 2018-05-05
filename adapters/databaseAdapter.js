@@ -56,3 +56,14 @@ export const deleteOne = async (collectionName, id) => {
     console.log(r)
   })
 }
+
+export const deleteOneByObject = async (collectionName, object) => {
+  const collection = db.collection(collectionName)
+  collection.deleteOne(object, (err, r) => {
+    if(err){
+      throw new Error("deleteOneByObject failed!")
+    }
+
+    console.log(r.deletedCount)
+  })
+}

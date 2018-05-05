@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt'
+
 import {
   find,
   findOne,
@@ -8,6 +10,7 @@ import {
 
 let findUserById
 let findUserByUsername
+let findUserByEmail
 let userExists
 let isUsernameUnique
 let isEmailUnique
@@ -15,6 +18,7 @@ let _createUser
 let hashPassword
 let saveUser
 let _deleteUser
+let updateUserPassword
 
 if(process.env.NODE_ENV === 'dev'){
   findUserById = id => ({
@@ -25,6 +29,13 @@ if(process.env.NODE_ENV === 'dev'){
   })
 
   findUserByUsername = userName => ({
+    id: "1",
+    userName,
+    hashedPassword: "password",
+    email: "me@example.com"
+  })
+
+  findUserByEmail = email => ({
     id: "1",
     userName,
     hashedPassword: "password",
@@ -46,12 +57,17 @@ if(process.env.NODE_ENV === 'dev'){
   _deleteUser = () => {}
 }else{
   findUserById = async id => {
-    const user = findOne('users', {id})
+    const user = await findOne('users', {id})
     return user
   }
 
   findUserByUsername = async userName => {
-    const user = findOne('users', {userName})
+    const user = await findOne('users', {userName})
+    return user
+  }
+
+  findUserByEmail = async email => {
+    const user = await findOne('users', {email})
     return user
   }
 
@@ -74,7 +90,11 @@ if(process.env.NODE_ENV === 'dev'){
     insertOne('users', user)
   }
 
-  hashPassword = word => word
+  hashPassword = password => {
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(token, salt)
+    return hash
+  }
 
   saveUser = async user => {
     updateOne("users", {id: user.id}, user)
@@ -87,6 +107,7 @@ if(process.env.NODE_ENV === 'dev'){
 
 export {findUserById}
 export {findUserByUsername}
+export {findUserByEmail}
 export {userExists}
 export {isUsernameUnique}
 export {isEmailUnique}
