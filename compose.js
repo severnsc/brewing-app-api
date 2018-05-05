@@ -9,7 +9,8 @@ import {
   isEmailUnique,
   _createUser,
   _deleteUser,
-  hashPassword
+  hashPassword,
+  compareHash
 } from './adapters/userAdapter'
 
 import {
@@ -52,7 +53,7 @@ export { hashPassword }
 export const getUser = core.getUserUseCase(findUserById)
 export const createUser = core.createUserUseCase(isUsernameUnique)(isEmailUnique)(_createUser)(hashPassword)
 export const updateUser = core.updateUserUseCase(findUserById)(isUsernameUnique)(isEmailUnique)(saveUser)
-export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)(hashPassword)
+export const authenticateUser = core.authenticateUserUseCase(findUserByUsername)(compareHash)
 export const deleteUser = core.deleteUserUseCase(_deleteUser)
 
 //Timer

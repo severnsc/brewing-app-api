@@ -16,6 +16,7 @@ let isUsernameUnique
 let isEmailUnique
 let _createUser
 let hashPassword
+let compareHash
 let saveUser
 let _deleteUser
 let updateUserPassword
@@ -51,6 +52,8 @@ if(process.env.NODE_ENV === 'dev'){
   _createUser = () => {}
 
   hashPassword = word => word
+
+  compareHash = () => true
 
   saveUser = () => {}
 
@@ -96,6 +99,10 @@ if(process.env.NODE_ENV === 'dev'){
     return hash
   }
 
+  compareHash = (password, hash) => {
+    return bcrypt.compareSync(password, hash)
+  }
+
   saveUser = async user => {
     updateOne("users", {id: user.id}, user)
   }
@@ -113,5 +120,6 @@ export {isUsernameUnique}
 export {isEmailUnique}
 export {_createUser}
 export {hashPassword}
+export {compareHash}
 export {saveUser}
 export {_deleteUser}
