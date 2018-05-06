@@ -100,7 +100,7 @@ app.get('/resetPassword', (req, res) => {
   findHash(token).then(result => {
     if(result){
       if(result.email === email && Date.now() < result.expires){
-        res.redirect(`/resetForm?email=${req.query.email}&token=${req.query.token}`)
+        res.redirect(`${result.callbackURL}/resetForm?email=${req.query.email}&token=${req.query.token}`)
       }else{
         res.redirect('/')
       }
