@@ -41,7 +41,6 @@ store.on('error', error => {
 
 const secure = process.env.NODE_ENV !== 'dev'
 app.use(bodyParser.json())
-app.use(express.static(__dirname + "/public/reset.html"))
 app.use(session({ 
   secret: process.env.SECRET,
   resave: false,
@@ -90,26 +89,6 @@ app.get('/login', (req, res) => {
   res.status(200).send("Please login")
 })
 
-app.get('/resetForm', (req, res) => {
-  res.sendFile(__dirname + "/public/reset.html")
-})
-
-app.get('/resetPassword', (req, res) => {
-  const token = decodeURIComponent(req.query.token)
-  const email = decodeURIComponent(req.query.email)
-  findHash(token).then(result => {
-    if(result){
-      if(result.email === email && Date.now() < result.expires){
-        res.redirect(`${result.callbackURL}/resetForm?email=${req.query.email}&token=${req.query.token}`)
-      }else{
-        res.redirect('/')
-      }
-    }else{
-      res.redirect('/')
-    }
-  })
-})
-
 app.post('/resetForm', (req, res) => {
   const token = decodeURIComponent(req.query.token)
   const email = decodeURIComponent(req.query.email)
@@ -123,10 +102,10 @@ app.post('/resetForm', (req, res) => {
         console.log("password reset for user", user.userName)
         res.redirect(result.callbackURL)
       }else{
-        res.redirect('/')
+        res.redirect(result.callbackURL)
       }
     }else{
-      res.redirect('/')
+      res.redirect(req.get('origin'))
     }
   })
 })
@@ -151,7 +130,7 @@ app.post('/sendRecoveryEmail', (req, res) => {
       const resetToken = generateResetToken()
       const tokenHash = hashToken(resetToken)
       saveResetHash(user.email, tokenHash, url).then(() => {
-        sendRecoveryEmail(user.email, resetToken)
+        sendRecoveryEmail(user.email, resetToken, url)
         res.sendStatus(200)
       }).catch(e => res.sendStatus(500))
     }else{
