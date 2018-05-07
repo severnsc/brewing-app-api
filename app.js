@@ -119,7 +119,7 @@ app.post('/signup', (req, res) => {
         if(err) res.sendStatus(500)
         res.redirect('/')
       })
-    }).catch(e => e)
+    }).catch(e => res.status(500).send("Error!" + e))
   }
 })
 

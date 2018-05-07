@@ -13,6 +13,7 @@ import resolvers from './resolvers'
 const RootQuery = `
   type RootQuery {
     user(id: String!): User
+    currentUser: User
   }
 `
 
