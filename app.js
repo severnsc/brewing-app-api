@@ -46,12 +46,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: store,
+  cookie: {httpOnly: false}
   secure: secure
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors())
+app.use(cors({origin: "http://localhost:3000" credentials: true}))
 
 passport.serializeUser((user, done) => {
   console.log("serializeUser")
