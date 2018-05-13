@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import {
   find,
   findOne,
@@ -14,35 +16,24 @@ let saveTimer
 let _deleteTimer
 
 if(process.env.NODE_ENV === 'dev'){
-  findTimersByUserId = () => {
-    return [
-      {
-        id: "1",
-        userId: "1",
-        duration: 1000,
-        remainingDuration: 1000,
-        intervalDuration: 500,
-        isRunning: false
-      },
-      {
-        id: "2",
-        userId: "1",
-        duration: 1000,
-        remainingDuration: 1000,
-        intervalDuration: 500,
-        isRunning: false
-      }
-    ]
-  }
 
-  findTimerById = id => ({
-    id,
+  const makeTimer = () => ({
+    id: faker.random.uuid(),
     userId: "1",
-    duration: 1000,
-    remainingDuration: 1000,
-    intervalDuration: 500,
+    duration: faker.random.number(),
+    remainingDuration: faker.random.number(),
+    intervalDuration: faker.random.number(),
     isRunning: false
   })
+
+  let fakeTimers = []
+  while(fakeTimers.length < 50){
+    fakeTimers.push(makeTimer())
+  }
+
+  findTimersByUserId = () => fakeTimers
+
+  findTimerById = () => makeTimer()
 
   timerExists = () => true
 

@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import bcrypt from 'bcrypt'
 
 import {
@@ -22,25 +24,33 @@ let _deleteUser
 let updateUserPassword
 
 if(process.env.NODE_ENV === 'dev'){
+
+  const makeUser = () => ({
+    id: faker.random.uuid(),
+    userName: faker.internet.userName(),
+    hashedPassword: faker.internet.password(),
+    email: faker.internet.email()
+  })
+
   findUserById = id => ({
     id,
-    userName: "test user",
-    hashedPassword: "hashedPassword",
-    email: "me@example.com"
+    userName: faker.internet.userName(),
+    hashedPassword: faker.internet.password(),
+    email: faker.internet.email()
   })
 
   findUserByUsername = userName => ({
     id: "1",
     userName,
-    hashedPassword: "password",
-    email: "me@example.com"
+    hashedPassword: faker.internet.password(),
+    email: faker.internet.email()
   })
 
   findUserByEmail = email => ({
     id: "1",
-    userName,
-    hashedPassword: "password",
-    email: "me@example.com"
+    userName: faker.internet.userName(),
+    hashedPassword: faker.internet.password(),
+    email
   })
 
   userExists = id => true

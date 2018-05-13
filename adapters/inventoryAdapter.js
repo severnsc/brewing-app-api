@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import {
   find,
   findOne,
@@ -17,23 +19,29 @@ let saveInventory
 let _deleteInventory 
 
 if(process.env.NODE_ENV === 'dev'){
-  const inventoryItem = {
-    id: "1",
+
+  const makeInventoryItem = () => ({
+    id: faker.random.uuid(),
     inventoryId: "1",
     object: {
-        name: "Test Object"
+        name: faker.random.word()
       },
     quantityUnit: "lbs",
-    currentQuantity: 2,
-    reorderQuantity: 10,
-    reorderThreshold: 1,
+    currentQuantity: faker.random.number(),
+    reorderQuantity: faker.random.number(),
+    reorderThreshold: faker.random.number(),
     costUnit: "USD",
-    unitCost: 10,
-    reorderCost: 100,
-    lastReorderDate: new Date("11/2/17"),
-    deliveryDate: new Date("1/2/13"),
-    createdAt: new Date(),
-    updatedAt: new Date()
+    unitCost: faker.random.number(),
+    reorderCost: faker.random.number(),
+    lastReorderDate: faker.date.past(),
+    deliveryDate: faker.date.future(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.past()
+  })
+
+  let fakeItems = []
+  while(fakeItems.length < 200){
+    fakeItems.push(makeInventoryItem())
   }
 
   findInventoriesByUserId = () => {
@@ -42,16 +50,16 @@ if(process.env.NODE_ENV === 'dev'){
         id: "1",
         userId: "1",
         name: "test inventory",
-        items: [inventoryItem]
+        items: fakeItems
       }
     ]
   }
 
-  findInventoryById = () => ({
-    id: "1",
+  findInventoryById = id => ({
+    id,
     userId: "1",
-    name: "test inventory",
-    items: [inventoryItem]
+    name: faker.random.word(),
+    items: fakeItems
   })
 
   _createInventory = () => {}

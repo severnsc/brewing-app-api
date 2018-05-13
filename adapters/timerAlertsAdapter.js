@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import {
   find,
   findOne,
@@ -13,34 +15,25 @@ let saveTimerAlert
 let _deleteTimerAlert
 
 if(process.env.NODE_ENV === 'dev'){
-  findTimerAlertsByTimerId = () => {
-    return [
-      {
-        id: "1",
-        timerId: "1",
-        activationTime: 1000,
-        message: "Hello!",
-        activated: false
-      },
-      {
-        id: "2",
-        timerId: "1",
-        activationTime: 500,
-        message: "Hello again!",
-        activated: false
-      }
-    ]
+
+  const makeTimerAlert = () => ({
+    id: faker.random.uuid(),
+    timerId: "1",
+    activationTime: faker.random.number(),
+    message: faker.random.word(),
+    activated: false
+  })
+
+  const fakeTimerAlerts = []
+  while(fakeTimerAlerts.length < 50){
+    fakeTimerAlerts.push(makeTimerAlert())
   }
+
+  findTimerAlertsByTimerId = () => fakeTimerAlerts
 
   _createTimerAlert = () => {}
 
-  findTimerAlertById = id => ({
-    id,
-    timerId: "1",
-    activationTime: 1000,
-    message: "test",
-    activated: false
-  })
+  findTimerAlertById = () => makeTimerAlert()
 
   saveTimerAlert = () => {}
 

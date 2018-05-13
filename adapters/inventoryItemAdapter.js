@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import {
   find,
   findOne,
@@ -22,18 +24,18 @@ if(process.env.NODE_ENV === 'dev'){
   findInventoryItemById = id => ({
     id,
     inventoryId: "1", 
-    object: {name:'object'},
+    object: {name:faker.random.word()},
     quantityUnit: "lbs",
-    currentQuantity: 10,
-    reorderQuantity: 10,
-    reorderThreshold: 5,
+    currentQuantity: faker.random.number(),
+    reorderQuantity: faker.random.number(),
+    reorderThreshold: faker.random.number(),
     costUnit: "USD",
-    unitCost: 1,
-    reorderCost: 10,
-    lastReorderDate: null,
-    deliveryDate: null,
-    createdAt: new Date(),
-    updatedAt: new Date()
+    unitCost: faker.random.number(),
+    reorderCost: faker.random.number(),
+    lastReorderDate: faker.date.past(),
+    deliveryDate: faker.date.future(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.past()
   })
 
   saveInventoryItem = () => {}
