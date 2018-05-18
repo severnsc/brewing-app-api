@@ -89,6 +89,13 @@ app.get('/login', (req, res) => {
   res.status(200).send("Please login")
 })
 
+app.get('/logout', (req, res) => {
+  req.logout()
+  const fullUrl = req.headers.referer
+  const baseUrl = fullUrl.split(/[\/][a-zA-Z]*$/)[0]
+  res.redirect(baseUrl)
+})
+
 app.post('/resetForm', (req, res) => {
   const token = decodeURIComponent(req.query.token)
   const email = decodeURIComponent(req.query.email)
