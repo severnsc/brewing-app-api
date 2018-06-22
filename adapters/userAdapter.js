@@ -55,7 +55,7 @@ if(process.env.NODE_ENV === 'dev'){
 
   userExists = id => true
 
-  isUsernameUnique = () => true
+  isUsernameUnique = () => Promise.resolve(true)
 
   isEmailUnique = () => true
 
