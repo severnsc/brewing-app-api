@@ -32,13 +32,13 @@ if(process.env.NODE_ENV === 'dev'){
     costUnit: "USD",
     unitCost: faker.random.number(),
     reorderCost: faker.random.number(),
-    lastReorderDate: faker.date.past().toString(),
-    deliveryDate: faker.date.future().toString(),
-    createdAt: faker.date.past().toString(),
-    updatedAt: faker.date.past().toString()
+    lastReorderDate: faker.date.past().toUTCString(),
+    deliveryDate: faker.date.future().toUTCString(),
+    createdAt: faker.date.past().toUTCString(),
+    updatedAt: faker.date.past().toUTCString()
   })
 
-  saveInventoryItem = () => {}
+  saveInventoryItem = inventoryItem => console.log(inventoryItem)
 
   _deleteInventoryItem = () => {}
 }else{

@@ -11,8 +11,8 @@ export default {
   costUnit: inventoryItem => inventoryItem.costUnit,
   unitCost: inventoryItem => inventoryItem.unitCost,
   reorderCost: inventoryItem => inventoryItem.reorderCost,
-  lastReorderDate: inventoryItem => inventoryItem.lastReorderDate.toString(),
-  deliveryDate: inventoryItem => inventoryItem.deliveryDate.toString(),
-  createdAt: inventoryItem => inventoryItem.createdAt.toString(),
-  updatedAt: inventoryItem => inventoryItem.updatedAt.toString()
+  lastReorderDate: inventoryItem => inventoryItem.lastReorderDate,
+  deliveryDate: inventoryItem => inventoryItem.deliveryDate,
+  createdAt: inventoryItem => inventoryItem.createdAt,
+  updatedAt: inventoryItem => inventoryItem.updatedAt
 }
