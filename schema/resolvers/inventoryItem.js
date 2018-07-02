@@ -1,3 +1,5 @@
+import { getInventory } from "../../compose"
+
 export default {
   id: inventoryItem => inventoryItem.id,
   inventory: inventoryItem => getInventory(inventoryItem.inventoryId),
