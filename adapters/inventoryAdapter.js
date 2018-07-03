@@ -23,9 +23,9 @@ if(process.env.NODE_ENV === 'dev'){
   const makeInventoryItem = () => ({
     id: faker.random.uuid(),
     inventoryId: "1",
-    object: {
+    object: JSON.stringify({
         name: faker.random.word()
-      },
+      }),
     quantityUnit: "lbs",
     currentQuantity: faker.random.number(),
     reorderQuantity: faker.random.number(),

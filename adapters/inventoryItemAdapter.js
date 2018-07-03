@@ -24,7 +24,7 @@ if(process.env.NODE_ENV === 'dev'){
   findInventoryItemById = id => ({
     id,
     inventoryId: "1", 
-    object: {name:faker.random.word()},
+    object: JSON.stringify({name:faker.random.word()}),
     quantityUnit: "lbs",
     currentQuantity: faker.random.number(),
     reorderQuantity: faker.random.number(),

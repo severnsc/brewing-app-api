@@ -3,7 +3,7 @@ import { getInventory } from "../../compose"
 export default {
   id: inventoryItem => inventoryItem.id,
   inventory: inventoryItem => getInventory(inventoryItem.inventoryId),
-  object: inventoryItem => JSON.stringify(inventoryItem.object),
+  object: inventoryItem => inventoryItem.object,
   quantityUnit: inventoryItem => inventoryItem.quantityUnit,
   currentQuantity: inventoryItem => inventoryItem.currentQuantity,
   reorderQuantity: inventoryItem => inventoryItem.reorderQuantity,
