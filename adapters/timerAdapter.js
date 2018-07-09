@@ -33,7 +33,10 @@ if(process.env.NODE_ENV === 'dev'){
 
   findTimersByUserId = () => fakeTimers
 
-  findTimerById = () => makeTimer()
+  findTimerById = id => {
+    const timer = makeTimer()
+    return Object.assign({}, timer, { id })
+  }
 
   timerExists = () => true
 
