@@ -1,1 +1,1 @@
-export const sendMessage = () => {}
+export const sendMessage = message => console.log(message)
