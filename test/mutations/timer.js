@@ -13,11 +13,12 @@ describe('timer mutations', () => {
 
     const mutation = `
       mutation CreateTimer {
-        createTimer(userId: "1", duration: 1000, intervalDuration: 500) {
+        createTimer(userId: "1", name:"timer", duration: 1000, intervalDuration: 500) {
           id
           user {
             id
           }
+          name
           duration
           remainingDuration
           intervalDuration
@@ -45,6 +46,15 @@ describe('timer mutations', () => {
       const timer = result.data.createTimer
       expect(timer).to.have.property('user')
       expect(timer.user).to.be.an('object')
+    })
+
+    it('should have a string name field', async () => {
+      const promise = graphql(schema, mutation)
+      const result = await promise
+
+      const timer = result.data.createTimer
+      expect(timer).to.have.property('name')
+      expect(timer.name).to.be.a('string')
     })
 
     it('should have a number duration field', async () => {
@@ -439,11 +449,12 @@ describe('timer mutations', () => {
 
     const mutation = `
       mutation UpdateTimer {
-        updateTimer(id: "1", duration: 200, intervalDuration: 1) {
+        updateTimer(id: "1", name:"new name", duration: 200, intervalDuration: 1) {
           id
           user {
             id
           }
+          name
           duration
           remainingDuration
           intervalDuration
@@ -469,6 +480,14 @@ describe('timer mutations', () => {
       const timer = result.data.updateTimer
       expect(timer).to.have.property('user')
       expect(timer.user).to.be.an('object')
+    })
+
+    it.only('should have a string name field', async () => {
+      const promise = graphql(schema, mutation)
+      const result = await promise
+      const timer = result.data.updateTimer
+      expect(timer).to.have.property('name')
+      expect(timer.name).to.be.a('string')
     })
 
     it('should have a number duration field', async () => {

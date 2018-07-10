@@ -17,6 +17,7 @@ describe('Timer', () => {
           user {
             id
           }
+          name
           duration
           remainingDuration
           intervalDuration
@@ -40,6 +41,13 @@ describe('Timer', () => {
     const result = await graphql(schema, query)
     const timer = result.data.user.timers[0]
     expect(timer).to.have.property('user')  
+  })
+
+  it('should have a string property name', async () => {
+    const result = await graphql(schema, query)
+    const timer = result.data.user.timers[0]
+    expect(timer).to.have.property('name')
+    expect(timer.name).to.be.a('string')
   })
 
   it('should have number property duration', async () => {

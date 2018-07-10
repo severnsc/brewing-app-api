@@ -20,6 +20,7 @@ if(process.env.NODE_ENV === 'dev'){
   const makeTimer = () => ({
     id: faker.random.uuid(),
     userId: "1",
+    name: faker.random.word(),
     duration: faker.random.number(),
     remainingDuration: faker.random.number(),
     intervalDuration: faker.random.number(),

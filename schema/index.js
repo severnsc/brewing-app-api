@@ -30,12 +30,12 @@ const Mutation = `
     createInventoryItem(inventoryId: String!, object: String!, quantityUnit: String!, currentQuantity: Float!, reorderQuantity: Float!, reorderThreshold: Float!, costUnit: String!, unitCost: Float!, reorderCost: Float!, lastReorderDate: String, deliveryDate: String, createdAt: String!, updatedAt: String!): InventoryItem
     updateInventoryItem(id: String!, inventoryId: String, object: String, quantityUnit: String, currentQuantity: Float, reorderQuantity: Float, reorderThreshold: Float, costUnit: String, unitCost: Float, reorderCost: Float, lastReorderDate: String, deliveryDate: String): InventoryItem
     deleteInventoryItem(id: String!): Inventory
-    createTimer(userId: String!, duration: Int!, intervalDuration: Int!): Timer
+    createTimer(userId: String!, name: String!, duration: Int!, intervalDuration: Int!): Timer
     startTimer(id: String!): Timer
     stopTimer(id: String!): Timer
     decrementTimer(id: String!): Timer
     resetTimer(id: String!): Timer
-    updateTimer(id: String!, duration: Int, intervalDuration: Int): Timer
+    updateTimer(id: String!, name: String, duration: Int, intervalDuration: Int): Timer
     deleteTimer(id: String!): Timer
     createTimerAlert(timerId: String!, activationTime: Int!, message: String!): TimerAlert
     updateTimerAlert(id: String!, timerId: String, activationTime: Int, message: String): TimerAlert

@@ -165,9 +165,9 @@ export default {
     }).catch(e => e)
   },
 
-  createTimer: (_, { userId, duration, intervalDuration }, ctx) => {
+  createTimer: (_, { userId, name, duration, intervalDuration }, ctx) => {
     if(ctx && ctx.user.id === userId){
-      const timer = createTimer(userId, duration, intervalDuration)
+      const timer = createTimer(userId, name, duration, intervalDuration)
       return timer
     }else{
       return null
@@ -218,10 +218,14 @@ export default {
     }).catch(e => e)
   },
 
-  updateTimer: (_, { id, duration, intervalDuration }, ctx) => {
+  updateTimer: (_, { id, name, duration, intervalDuration }, ctx) => {
     return getTimer(id).then(timer => {
       if(ctx && ctx.user.id === timer.userId){
         let updatePropsObj = {}
+
+        if(name){
+          updatePropsObj.name = name
+        }
 
         if(duration){
           updatePropsObj.duration = duration

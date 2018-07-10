@@ -2,6 +2,7 @@ const Timer = `
   type Timer {
     id: String!
     user: User!
+    name: String!
     duration: Int!
     remainingDuration: Int!
     intervalDuration: Int!
