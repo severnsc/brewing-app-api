@@ -9,10 +9,5 @@ export default {
   currentUser: (_, {}, ctx) => {
     if(ctx.user) return getUser(ctx.user.id)
     return null
-  },
-
-  inventoryItem: (_, { id }, ctx) => {
-  	if(ctx.user) return getInventoryItem(id)
-  	return null
   }
 }

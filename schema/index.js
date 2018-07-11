@@ -14,7 +14,6 @@ const RootQuery = `
   type RootQuery {
     user(id: String!): User
     currentUser: User
-    inventoryItem(id: String!): InventoryItem
   }
 `
 
