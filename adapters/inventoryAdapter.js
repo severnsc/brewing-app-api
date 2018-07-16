@@ -51,6 +51,24 @@ if(process.env.NODE_ENV === 'dev'){
         userId: "1",
         name: "test inventory",
         items: fakeItems
+      },
+      {
+        id: "2",
+        userId: "1",
+        name: "Malt",
+        items: fakeItems
+      },
+      {
+        id: "3",
+        userId: "1",
+        name: "Hops",
+        items: fakeItems
+      },
+      {
+        id: "4",
+        userId: "1",
+        name: "Yeast",
+        items: fakeItems
       }
     ]
   }
