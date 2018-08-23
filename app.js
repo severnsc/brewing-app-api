@@ -30,7 +30,7 @@ passport.use(new LocalStrategy(
 const app = express()
 
 const store = new MongoDBStore({
-  uri: process.env.LOCAL_DB_URL,
+  uri: process.env.DB_URL,
   databaseName: 'brewing-app-db',
   collection: "sessions"
 })
