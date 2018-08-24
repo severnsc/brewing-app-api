@@ -202,7 +202,7 @@ export default {
     return getTimer(id).then(timer => {
       if(ctx && ctx.user.id === timer.userId){
         const decrementedTimer = decrementTimer(id)
-        pubsub.publish(TIMER_UPDATED, {timerUpdated: { id }})
+        pubsub.publish(TIMER_UPDATED, {timerUpdated: decrementedTimer})
         return decrementedTimer
       }else{
         return null
