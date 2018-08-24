@@ -43,10 +43,17 @@ const Mutation = `
   }
 `
 
+const Subscription = `
+  type Subscription {
+    timerUpdated: Timer
+  }
+`
+
 const SchemaDefinition = `
   schema {
     query: RootQuery,
-    mutation: Mutation
+    mutation: Mutation,
+    subscription: Subscription
   }
 `
 
@@ -55,6 +62,7 @@ export default makeExecutableSchema({
     SchemaDefinition,
     RootQuery,
     Mutation,
+    Subscription,
     Inventory,
     InventoryItem,
     Timer,

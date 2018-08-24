@@ -2,6 +2,7 @@ import express from 'express'
 import session from "express-session"
 import bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+import { PubSub } from "apollo-server"
 import schema from './schema'
 import { createUser, authenticateUser, getUser, updateUser } from './compose'
 import passport from 'passport'
@@ -12,6 +13,7 @@ import { generateResetToken, hashToken, saveResetHash, findHash, deleteResetHash
 import { sendRecoveryEmail } from './adapters/emailAdapter'
 const MongoDBStore = require('connect-mongodb-session')(session)
 const LocalStrategy = require('passport-local').Strategy
+export const pubsub = new PubSub()
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
@@ -79,7 +81,10 @@ app.use('/graphql', ensureAuth, bodyParser.json(), graphqlExpress(req => {
   return { schema, context: {user: req.user} }
 }))
 
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
+app.use('/graphiql', graphiqlExpress({ 
+  endpointURL: '/graphql',
+  subscriptionsEndpoint: "ws://localhost:5000/graphql"
+}))
 
 app.get('/', (req, res) => {
   res.sendStatus(200)

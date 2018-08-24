@@ -29,6 +29,8 @@ import {
 } from '../../compose'
 
 import validator from 'validator'
+import { TIMER_UPDATED } from "./subscription"
+import { pubsub } from "../../app"
 
 export default {
   createUser: (_, { userName, password, email }) => {
@@ -200,6 +202,7 @@ export default {
     return getTimer(id).then(timer => {
       if(ctx && ctx.user.id === timer.userId){
         const decrementedTimer = decrementTimer(id)
+        pubsub.publish(TIMER_UPDATED, {timerUpdated: { id }})
         return decrementedTimer
       }else{
         return null
