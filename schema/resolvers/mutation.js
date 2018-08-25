@@ -18,6 +18,7 @@ import {
   startTimer,
   stopTimer,
   decrementTimer,
+  stopDecrementing,
   resetTimer,
   updateTimer,
   deleteTimer,
@@ -29,8 +30,6 @@ import {
 } from '../../compose'
 
 import validator from 'validator'
-import { TIMER_UPDATED } from "./subscription"
-import { pubsub } from "../../app"
 
 export default {
   createUser: (_, { userName, password, email }) => {
@@ -177,9 +176,10 @@ export default {
   },
 
   startTimer: (_, { id }, ctx) => {
-    return getTimer(id).then(timer => {
+    return getTimer(id).then(async timer => {
       if(ctx && ctx.user.id === timer.userId){
-        const startedTimer = startTimer(id)
+        const startedTimer = await startTimer(id)
+        decrementTimer(startedTimer)
         return startedTimer
       }else{
         return null
@@ -191,6 +191,7 @@ export default {
     return getTimer(id).then(timer => {
       if(ctx && ctx.user.id === timer.userId){
         const stoppedTimer = stopTimer(id)
+        stopDecrementing(stoppedTimer)
         return stoppedTimer
       }else{
         return null
@@ -202,7 +203,6 @@ export default {
     return getTimer(id).then(timer => {
       if(ctx && ctx.user.id === timer.userId){
         const decrementedTimer = decrementTimer(id)
-        pubsub.publish(TIMER_UPDATED, {timerUpdated: decrementedTimer})
         return decrementedTimer
       }else{
         return null

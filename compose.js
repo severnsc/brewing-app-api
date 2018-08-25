@@ -45,7 +45,17 @@ import {
   _deleteTimerAlert
 } from './adapters/timerAlertsAdapter'
 
+import {
+  createEverySecondCronJob,
+  createJob,
+  findJobByTimerId,
+  deleteJobByTimerId
+} from "./adapters/cronAdapter"
+
 import { sendMessage } from './adapters/messagingAdapter'
+
+import { TIMER_UPDATED } from "./schema/resolvers/subscription"
+import { pubsub } from "./app"
 
 export { hashPassword }
 
@@ -61,7 +71,25 @@ export const getTimer = core.getTimerUseCase(findTimerById)
 export const createTimer = core.createTimerUseCase(_createTimer)
 export const startTimer = core.startTimerUseCase(findTimerById)(saveTimer)
 export const stopTimer = core.stopTimerUseCase(findTimerById)(saveTimer)
-export const decrementTimer = core.decrementTimerUseCase(findTimerById)(saveTimer)
+const decrementTimerUseCase = core.decrementTimerUseCase(findTimerById)(saveTimer)
+
+const publishDecrementedTimerUpdate = async id => {
+  const timer = await decrementTimerUseCase(id)
+  pubsub.publish(TIMER_UPDATED, {timerUpdated: timer})
+}
+
+export const decrementTimer = timer => {
+  const job = createEverySecondCronJob(() => publishDecrementedTimerUpdate(timer.id))
+  createJob(job)
+  job.start()
+}
+
+export const stopDecrementing = async timer => {
+  const job = findJobByTimerId(timer.id)
+  deleteJobByTimerId(timer.id)
+  job.stop()
+}
+
 export const resetTimer = core.resetTimerUseCase(findTimerById)(saveTimer)
 export const updateTimer = core.updateTimerUseCase(findTimerById)(saveTimer)
 export const deleteTimer = core.deleteTimerUseCase(_deleteTimer)
