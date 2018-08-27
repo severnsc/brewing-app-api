@@ -14,6 +14,7 @@ let timerExists
 let _createTimer
 let saveTimer
 let _deleteTimer
+let findStartedTimers
 
 if(process.env.NODE_ENV === 'dev'){
 
@@ -57,6 +58,11 @@ if(process.env.NODE_ENV === 'dev'){
     return timer
   }
 
+  findStartedTimers = async () => {
+    const timers = await find("timers", {isRunning: true})
+    return timers
+  }
+
   _createTimer = async timer => {
     insertOne("timers", timer)
   }
@@ -72,6 +78,7 @@ if(process.env.NODE_ENV === 'dev'){
 
 export {findTimerById}
 export {findTimersByUserId}
+export {findStartedTimers}
 export {timerExists}
 export {_createTimer}
 export {saveTimer}
