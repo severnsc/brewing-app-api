@@ -96,6 +96,6 @@ export const decrementTimers = async () => {
   decrementedTimers.forEach(async timer => {
     const timerAlerts = await findTimerAlertsByTimerId(timer.id)
     const timerAlertsToActivate = timerAlerts.filter(alert => alert.activationTime === timer.remainingDuration)
-    timerAlertsToActivate.forEach(alert => activateTimerAlert(alert.id))
+    timerAlertsToActivate.forEach(alert => activateTimerAlert(alert.id).catch(e => console.error(e)))
   })
 }
