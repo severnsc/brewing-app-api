@@ -17,6 +17,7 @@ import {
   _createTimer,
   findTimersByUserId,
   findTimerById,
+  findStartedTimers,
   saveTimer,
   _deleteTimer
 } from './adapters/timerAdapter'
@@ -87,3 +88,14 @@ export const getInventoryItem = core.getInventoryItemUseCase(findInventoryItemBy
 export const createInventoryItem = core.createInventoryItemUseCase(_createInventoryItem)(addToInventory)
 export const updateInventoryItem = core.updateInventoryItemUseCase(findInventoryItemById)(saveInventoryItem)
 export const deleteInventoryItem = core.deleteInventoryItemUseCase(_deleteInventoryItem)
+
+export const decrementTimers = async () => {
+  const startedTimers = await findStartedTimers().catch(e => e)
+  const promises = startedTimers.map(timer => decrementTimer(timer.id, Date.now()))
+  const decrementedTimers = await Promise.all(promises)
+  decrementedTimers.forEach(async timer => {
+    const timerAlerts = await findTimerAlertsByTimerId(timer.id)
+    const timerAlertsToActivate = timerAlerts.filter(alert => alert.activationTime === timer.remainingDuration)
+    timerAlertsToActivate.forEach(alert => activateTimerAlert(alert.id))
+  })
+}
