@@ -80,6 +80,7 @@ export const getTimerAlert = core.getTimerAlertUseCase(findTimerAlertById)
 export const createTimerAlert = core.createTimerAlertUseCase(_createTimerAlert)
 export const updateTimerAlert = core.updateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)
 export const activateTimerAlert = core.activateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)(sendMessage)
+export const deactivateTimerAlert = core.deactivateTimerAlertUseCase(findTimerAlertById)(saveTimerAlert)
 export const deleteTimerAlert = core.deleteTimerAlertUseCase(_deleteTimerAlert)
 export const getTimerAlertsByTimerId = core.getTimerAlertsByTimerIdUseCase(findTimerAlertsByTimerId)
 
