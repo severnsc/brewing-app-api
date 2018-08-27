@@ -24,13 +24,13 @@
     "graphql": "^0.13.2",
     "graphql-tools": "^2.24.0",
     "mocha": "^5.2.0",
-    "nodemailer": "^4.6.7",
+    "nodemailer": "^4.6.8",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "twilio": "^3.19.2",
     "uuid": "^3.3.2",
-    "validator": "^10.4.0"
+    "validator": "^10.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

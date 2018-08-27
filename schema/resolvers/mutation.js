@@ -22,9 +22,11 @@ import {
   updateTimer,
   deleteTimer,
   getTimerAlert,
+  getTimerAlertsByTimerId,
   createTimerAlert,
   updateTimerAlert,
   activateTimerAlert,
+  deactivateTimerAlert,
   deleteTimerAlert
 } from '../../compose'
 
@@ -208,9 +210,11 @@ export default {
   },
 
   resetTimer: (_, { id }, ctx) => {
-    return getTimer(id).then(timer => {
+    return getTimer(id).then(async timer => {
       if(ctx && ctx.user.id === timer.userId){
         const resetedTimer = resetTimer(id)
+        const alerts = await getTimerAlertsByTimerId(id)
+        alerts.forEach(alert => deactivateTimerAlert(alert.id))
         return resetedTimer
       }else{
         return null
