@@ -21,7 +21,7 @@ const Mutation = `
   type Mutation {
     createUser(userName: String!, password: String!): User
     updateUser(id: String!, userName: String, password: String): User
-    authenticateUser(userName: String!, password: String!): User
+    authenticateUser(username: String!, password: String!): User
     deleteUser(id: String!): User
     createInventory(name: String!, userId: String!): Inventory
     updateInventory(id: String!, name: String!): Inventory
