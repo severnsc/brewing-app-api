@@ -69,8 +69,8 @@ export default {
     }
   },
 
-  authenticateUser: (_, { username, password }) => {
-    const authenticatedUser = authenticateUser(username, password).catch(e => null)
+  authenticateUser: (_, { userName, password }) => {
+    const authenticatedUser = authenticateUser(userName, password)
     return authenticatedUser
   },
 
