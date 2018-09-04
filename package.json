@@ -2,9 +2,9 @@
   "name": "brewing-app-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node",
+    "start": "nodemon server.js --exec babel-node",
     "test": "mocha --require babel-core/register --require babel-polyfill --watch --watch-extensions js 'test/**/*.js'"
   },
   "author": "",
