@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node",
+    "start": "node server.js --exec babel-node",
     "test": "mocha --require babel-core/register --require babel-polyfill --watch --watch-extensions js 'test/**/*.js'"
   },
   "author": "",
