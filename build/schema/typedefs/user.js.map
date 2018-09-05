@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../schema/typedefs/user.js"],"names":["User"],"mappings":";;;;;AAAA,IAAMA,4HAAN;;kBASeA,I","file":"user.js","sourcesContent":["const User = `\n  type User {\n    id: String!\n    userName: String!\n    timers: [Timer]!\n    inventories: [Inventory]!\n  }\n`\n\nexport default User"]}

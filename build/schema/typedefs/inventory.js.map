@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../schema/typedefs/inventory.js"],"names":["Inventory"],"mappings":";;;;;AAAA,IAAMA,2HAAN;kBAQeA,S","file":"inventory.js","sourcesContent":["const Inventory = `\n  type Inventory {\n    id: String!\n    user: User!\n    name: String!\n    items: [InventoryItem]!\n  }\n`\nexport default Inventory"]}
