@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import { dbConnection } from './adapters/databaseAdapter'
 import app from './app'
 import { decrementTimers } from "./compose"
