@@ -46,7 +46,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: store,
-  secure: secure
+  //secure: secure
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
