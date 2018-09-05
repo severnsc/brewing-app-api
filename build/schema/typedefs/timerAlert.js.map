@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../schema/typedefs/timerAlert.js"],"names":["TimerAlert"],"mappings":";;;;;AAAA,IAAMA,wJAAN;;kBAUeA,U","file":"timerAlert.js","sourcesContent":["const TimerAlert = `\n  type TimerAlert {\n    id: String!\n    timer: Timer!\n    activationTime: Int!\n    message: String!\n    activated: Boolean!\n  }\n`\n\nexport default TimerAlert"]}
