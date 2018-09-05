@@ -51,7 +51,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({origin: "http://localhost:3000", credentials: true}))
+app.use(cors({origin: process.env.ORIGIN, credentials: true}))
 
 passport.serializeUser((user, done) => {
   console.log("serializeUser")
