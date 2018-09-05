@@ -45,7 +45,10 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
-  store: store
+  store: store,
+  cookie: {
+    httpOnly: true
+  }
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
