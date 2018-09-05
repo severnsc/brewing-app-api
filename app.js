@@ -47,7 +47,7 @@ app.use(session({
   saveUninitialized: false,
   store: store,
   secure: secure,
-  maxAge: 60*10000
+  cookie: {maxAge: 60*10000}
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
