@@ -40,7 +40,6 @@ store.on('error', error => {
 })
 
 const secure = process.env.NODE_ENV !== 'dev'
-app.set('trust proxy')
 app.use(bodyParser.json())
 app.use(session({ 
   secret: process.env.SECRET,
