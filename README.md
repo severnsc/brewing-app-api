@@ -13,3 +13,23 @@ To see documentation and test queries/mutations:
 
 To run queries and mutations:
 `localhost:PORT/graphql`
+
+# ENV Variables
+
+ACCOUNT_SID
+
+DB_URL
+
+EMAIL
+
+EMAIL_PASSWORD
+
+FROM_NUMBER
+
+SECRET
+
+TO_NUMBER
+
+TWILIO_AUTH_TOKEN
+
+ORIGIN
