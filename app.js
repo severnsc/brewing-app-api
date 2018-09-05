@@ -54,6 +54,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({origin: process.env.ORIGIN, credentials: true}))
+app.set('trust proxy', 1)
 
 passport.serializeUser((user, done) => {
   console.log("serializeUser")
