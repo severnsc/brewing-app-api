@@ -1,0 +1,47 @@
+{
+  "name": "brewing-app-api",
+  "scripts": {
+  },
+  "env": {
+    "ACCOUNT_SID": {
+      "required": true
+    },
+    "DB_URL": {
+      "required": true
+    },
+    "EMAIL": {
+      "required": true
+    },
+    "EMAIL_PASSWORD": {
+      "required": true
+    },
+    "FROM_NUMBER": {
+      "required": true
+    },
+    "ORIGIN": {
+      "required": true
+    },
+    "SECRET": {
+      "required": true
+    },
+    "TO_NUMBER": {
+      "required": true
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
