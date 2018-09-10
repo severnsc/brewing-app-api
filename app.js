@@ -39,17 +39,12 @@ store.on('error', error => {
   console.log(error)
 })
 
-const secure = process.env.NODE_ENV !== 'dev'
 app.use(bodyParser.json())
 app.use(session({ 
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
-  store: store,
-  cookie: {
-    secure: secure,
-    httpOnly: true
-  }
+  store: store
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
