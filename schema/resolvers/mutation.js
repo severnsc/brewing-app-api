@@ -117,7 +117,11 @@ export default {
   createInventoryItem: (_, { inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt }, ctx) => {
     return getInventory(inventoryId).then(inventory => {
       if(ctx && ctx.user.id === inventory.userId){
-        const inventoryItem = createInventoryItem(inventoryId, object, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, lastReorderDate, deliveryDate, createdAt, updatedAt)
+        const transformedObject = JSON.parse(object)
+        const transformedLastReorderDate = new Date(lastReorderDate)
+        const transformedCreatedAt = new Date(createdAt)
+        const transformedUpdateAt = new Date(updatedAt)
+        const inventoryItem = createInventoryItem(inventoryId, transformedObject, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, transformedLastReorderDate, deliveryDate || null, transformedCreatedAt, transformedUpdateAt)
         return inventoryItem
       }else{
         return null
