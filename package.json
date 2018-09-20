@@ -10,6 +10,9 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel --ignore node_modules,test -d ./build ./ -s"
   },
+  "engines": {
+    "node": "8.11.2"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
