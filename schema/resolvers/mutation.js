@@ -119,10 +119,10 @@ export default {
       if(ctx && ctx.user.id === inventory.userId){
         const transformedObject = JSON.parse(object)
         const transformedLastReorderDate = new Date(lastReorderDate)
-        const transdormedDeliveryDate = new Date(deliveryDate)
+        const transformedDeliveryDate = new Date(deliveryDate)
         const transformedCreatedAt = new Date(createdAt)
         const transformedUpdateAt = new Date(updatedAt)
-        const inventoryItem = createInventoryItem(inventoryId, transformedObject, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, transformedLastReorderDate, deliveryDate || null, transformedCreatedAt, transformedUpdateAt)
+        const inventoryItem = createInventoryItem(inventoryId, transformedObject, quantityUnit, currentQuantity, reorderQuantity, reorderThreshold, costUnit, unitCost, reorderCost, transformedLastReorderDate, transformedDeliveryDate || null, transformedCreatedAt, transformedUpdateAt)
         return inventoryItem
       }else{
         return null
