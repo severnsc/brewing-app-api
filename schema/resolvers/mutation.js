@@ -151,6 +151,8 @@ export default {
           }
         })
 
+        console.log(id)
+
         const updatedInventoryItem = updateInventoryItem(id, updatePropsObj)
         return updatedInventoryItem
       }else{
