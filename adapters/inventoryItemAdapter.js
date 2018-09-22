@@ -65,10 +65,10 @@ if(process.env.NODE_ENV === 'dev'){
   }
 
   saveInventoryItem = async inventoryItem => {
-    const inventory = findInventoryById(inventoryItem.inventoryId).catch(e => e)
+    const inventory = await findInventoryById(inventoryItem.inventoryId).catch(e => e)
     const newItems = inventory.items.map(item => item.id === inventoryItem.id ? inventoryItem : item)
     const newInventory = Object.assign({}, inventory, {items: newItems})
-    saveInventory(newInventory).catch(e => e)
+    await saveInventory(newInventory).catch(e => e)
   }
 
   _deleteInventoryItem = async id => {
