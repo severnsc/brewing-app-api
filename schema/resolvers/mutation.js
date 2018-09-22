@@ -135,7 +135,7 @@ export default {
       if(ctx && ctx.user.id === inventory.userId){
         let updatePropsObj = {}
 
-        const args = [{object: JSON.parse(object)}, {quantityUnit}, {currentQuantity}, {reorderQuantity}, {reorderThreshold}, {costUnit}, {unitCost}, {reorderCost}, {lastReorderDate}, {deliveryDate}]
+        const args = [{object: JSON.parse(object)}, {quantityUnit}, {currentQuantity}, {reorderQuantity}, {reorderThreshold}, {costUnit}, {unitCost}, {reorderCost}, {lastReorderDate: new Date(lastReorderDate)}, {deliveryDate: new Date(deliveryDate)}]
 
         const argKeys = args.map(arg => Object.keys(arg)[0])
 
