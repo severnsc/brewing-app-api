@@ -53,7 +53,9 @@ if(process.env.NODE_ENV === 'dev'){
   }
 
   findInventoryItemById = async id => {
-    const inventoryItem = await find('inventoryItems', {id})
+    const inventories = await find("inventories", {}).catch(e => e)
+    const items = inventories.map(inventory => inventory.items).flat()
+    const inventoryItem = items.find(item => item.id === id)
     return inventoryItem
   }
 
