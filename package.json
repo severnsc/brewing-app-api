@@ -21,7 +21,7 @@
     "bcrypt": "git+https://github.com/kelektiv/node.bcrypt.js.git#master",
     "body-parser": "^1.18.3",
     "brewing-app-logic": "git+https://github.com/severnsc/brewing-app-logic.git",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "connect-mongodb-session": "^2.0.3",
     "cors": "^2.8.4",
@@ -35,9 +35,9 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "twilio": "^3.20.0",
+    "twilio": "^3.22.0",
     "uuid": "^3.3.2",
-    "validator": "^10.7.1"
+    "validator": "^10.8.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
