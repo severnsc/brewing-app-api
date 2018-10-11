@@ -49,7 +49,8 @@ import {
 import {
   _createSetting,
   findSettingById,
-  saveSetting
+  saveSetting,
+  _deleteSetting
 } from "./adapters/settingAdapter"
 
 import { sendMessage } from './adapters/messagingAdapter'
@@ -100,6 +101,7 @@ export const deleteInventoryItem = core.deleteInventoryItemUseCase(_deleteInvent
 export const createSetting = core.createSettingUseCase(_createSetting)
 export const getSetting = core.getSettingUseCase(findSettingById)
 export const updateSetting = core.updateSettingUseCase(findSettingById)(saveSetting)
+export const deleteSetting = core.deleteSettingUseCase(_deleteSetting)
 
 export const decrementTimers = async () => {
   const startedTimers = await findStartedTimers().catch(e => e)
