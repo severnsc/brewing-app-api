@@ -49,6 +49,7 @@ import {
 import {
   _createSetting,
   findSettingById,
+  findSettingsByUserId,
   saveSetting,
   _deleteSetting
 } from "./adapters/settingAdapter"
@@ -100,6 +101,7 @@ export const deleteInventoryItem = core.deleteInventoryItemUseCase(_deleteInvent
 //Setting
 export const createSetting = core.createSettingUseCase(_createSetting)
 export const getSetting = core.getSettingUseCase(findSettingById)
+export const getSettingsByUserId = core.getSettingsByUserIdUseCase(userExists)(findSettingsByUserId)
 export const updateSetting = core.updateSettingUseCase(findSettingById)(saveSetting)
 export const deleteSetting = core.deleteSettingUseCase(_deleteSetting)
 

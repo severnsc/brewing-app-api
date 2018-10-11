@@ -1,6 +1,7 @@
 import {
 	insertOne,
 	findOne,
+	find,
 	updateOne,
 	deleteOne
 } from "./databaseAdapter"
@@ -12,6 +13,11 @@ export const _createSetting = async setting => {
 export const findSettingById = async id => {
 	const setting = await findOne('settings', { id }).catch(e => e)
 	return setting
+}
+
+export const findSettingsByUserId = async userId => {
+	const settings = await find("settings", { userId }).catch(e => e)
+	return settings
 }
 
 export const saveSetting = async setting => {
