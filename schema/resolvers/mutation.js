@@ -326,5 +326,14 @@ export default {
         }
       }).catch(e => e)
     }).catch(e => e)
+  },
+
+  createSetting: (_, { userId, name, value }, ctx) => {
+    if(ctx && ctx.userId === userId){
+      const setting = createSetting(userId, name, value).catch(e => e)
+      return setting
+    }else{
+      return null
+    }
   }
 }
