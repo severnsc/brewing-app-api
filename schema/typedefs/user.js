@@ -3,7 +3,8 @@ const User = `
     id: String!
     userName: String!
     timers: [Timer]!
-    inventories: [Inventory]!
+    inventories: [Inventory]!,
+    settings: [Setting]!
   }
 `
 

@@ -5,7 +5,8 @@ import {
   InventoryItem,
   Timer,
   TimerAlert,
-  User
+  User,
+  Setting
 } from './typedefs'
 
 import resolvers from './resolvers'
@@ -59,7 +60,8 @@ export default makeExecutableSchema({
     InventoryItem,
     Timer,
     TimerAlert,
-    User
+    User,
+    Setting
   ],
   resolvers
 })
