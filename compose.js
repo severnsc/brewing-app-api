@@ -46,6 +46,14 @@ import {
   _deleteTimerAlert
 } from './adapters/timerAlertsAdapter'
 
+import {
+  _createSetting,
+  findSettingById,
+  findSettingsByUserId,
+  saveSetting,
+  _deleteSetting
+} from "./adapters/settingAdapter"
+
 import { sendMessage } from './adapters/messagingAdapter'
 
 export { hashPassword }
@@ -89,6 +97,13 @@ export const getInventoryItem = core.getInventoryItemUseCase(findInventoryItemBy
 export const createInventoryItem = core.createInventoryItemUseCase(_createInventoryItem)(addToInventory)
 export const updateInventoryItem = core.updateInventoryItemUseCase(findInventoryItemById)(saveInventoryItem)
 export const deleteInventoryItem = core.deleteInventoryItemUseCase(_deleteInventoryItem)
+
+//Setting
+export const createSetting = core.createSettingUseCase(_createSetting)
+export const getSetting = core.getSettingUseCase(findSettingById)
+export const getSettingsByUserId = core.getSettingsByUserIdUseCase(userExists)(findSettingsByUserId)
+export const updateSetting = core.updateSettingUseCase(findSettingById)(saveSetting)
+export const deleteSetting = core.deleteSettingUseCase(_deleteSetting)
 
 export const decrementTimers = async () => {
   const startedTimers = await findStartedTimers().catch(e => e)

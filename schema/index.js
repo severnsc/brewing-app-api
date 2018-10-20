@@ -5,7 +5,8 @@ import {
   InventoryItem,
   Timer,
   TimerAlert,
-  User
+  User,
+  Setting
 } from './typedefs'
 
 import resolvers from './resolvers'
@@ -40,6 +41,9 @@ const Mutation = `
     updateTimerAlert(id: String!, timerId: String, activationTime: Int, message: String): TimerAlert
     activateTimerAlert(id: String!): TimerAlert
     deleteTimerAlert(id: String!): TimerAlert
+    createSetting(userId: String!, name: String!, value: String!): Setting
+    updateSetting(id: String!, value: String!): Setting
+    deleteSetting(id: String!): Setting
   }
 `
 
@@ -59,7 +63,8 @@ export default makeExecutableSchema({
     InventoryItem,
     Timer,
     TimerAlert,
-    User
+    User,
+    Setting
   ],
   resolvers
 })

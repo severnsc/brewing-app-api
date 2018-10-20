@@ -27,7 +27,10 @@ import {
   updateTimerAlert,
   activateTimerAlert,
   deactivateTimerAlert,
-  deleteTimerAlert
+  deleteTimerAlert,
+  createSetting,
+  updateSetting,
+  deleteSetting
 } from '../../compose'
 
 import validator from 'validator'
@@ -325,6 +328,37 @@ export default {
           return null
         }
       }).catch(e => e)
+    }).catch(e => e)
+  },
+
+  createSetting: (_, { userId, name, value }, ctx) => {
+    if(ctx && ctx.user.id === userId){
+      const setting = createSetting(userId, name, value).catch(e => e)
+      return setting
+    }else{
+      return null
+    }
+  },
+
+  updateSetting: (_, { id, value }, ctx) => {
+    return getSetting(id).then(setting => {
+      if(ctx && ctx.user.id === setting.userId){
+        const setting = updateSetting(id, value).catch(e => e)
+        return setting
+      }else{
+        return null
+      }
+    })
+  },
+
+  deleteSetting: (_, { id }, ctx) => {
+    return getSetting(id).then(setting => {
+      if(ctx && ctx.user.id === setting.userId){
+        const deletedSetting = deleteSetting(id).catch(e => e)
+        return deletedSetting
+      }else{
+        return null
+      }
     }).catch(e => e)
   }
 }
