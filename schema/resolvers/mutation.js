@@ -29,6 +29,7 @@ import {
   deactivateTimerAlert,
   deleteTimerAlert,
   createSetting,
+  getSetting,
   updateSetting,
   deleteSetting
 } from '../../compose'
