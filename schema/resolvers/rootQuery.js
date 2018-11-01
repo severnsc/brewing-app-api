@@ -1,5 +1,5 @@
 import { getUser, getInventoryItem } from '../../compose'
-import { convertCurrency } from "../../adapters/currencyAdapter"
+import { cachedConvertCurrency } from "../../adapters/currencyAdapter"
 
 export default {
   user: (_, { id }, ctx) => {
@@ -14,7 +14,7 @@ export default {
 
   currencyExchange: (_, { from, to, amount }, ctx) => {
   	if(ctx.user){
-  		return convertCurrency(from, to, amount)
+  		return cachedConvertCurrency(from, to, amount)
   	}
   	return null
   }
