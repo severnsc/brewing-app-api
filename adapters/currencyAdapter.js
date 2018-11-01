@@ -1,4 +1,9 @@
 import axios from "axios"
+import {
+	insertOne,
+	findOne,
+	updateOne
+} from "./databaseAdapter"
 
 const API_URL = "https://api.exchangeratesapi.io/latest"
 
@@ -13,4 +18,33 @@ export const convertCurrency = (from, to, amount) => {
 		date: data.date
 	}))
 	.catch(e => e)
+}
+
+export const createCurrencyExchange = async currencyExchange =>
+	await insertOne("currencyExchanges", currencyExchange).catch(e => e)
+
+export const getCurrencyExchange = async (from, to) =>
+	await findOne("currencyExchanges", { from, to }).catch(e => e)
+
+export const saveCurrencyExchange = async currencyExchange => {
+	const { from, to } = currencyExchange
+	return await updateOne("currencyExchanges", { from, to }, currencyExchange)
+								.catch(e => e)
+}
+
+export const cachedConvertCurrency = async (from, to, amount) => {
+	const currencyExchange = await getCurrencyExchange(from, to).catch(e => e)
+	if(currencyExchange){
+		if(currencyExchange.date < new Date().toLocateDateString()){
+			const newCurrencyExchange = await convertCurrency(from, to, amount).catch(e => e)
+			await saveCurrencyExchange(newCurrencyExchange)
+			return newCurrencyExchange
+		}else{
+			return currencyExchange
+		}
+	}else{
+		const newCurrencyExchange = await convertCurrency(from, to, amount).catch(e => e)
+		await createCurrencyExchange(newCurrencyExchange)
+		return newCurrencyExchange
+	}
 }
