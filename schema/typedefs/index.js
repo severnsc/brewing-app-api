@@ -4,6 +4,7 @@ import Timer from './timer'
 import TimerAlert from './timerAlert'
 import User from './user'
 import Setting from "./setting"
+import CurrencyExchange from "./currencyExchange"
 
 export {
   Inventory,
@@ -11,5 +12,6 @@ export {
   Timer,
   TimerAlert,
   User,
-  Setting
+  Setting,
+  CurrencyExchange
 }

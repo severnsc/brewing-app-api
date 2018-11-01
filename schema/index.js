@@ -6,7 +6,8 @@ import {
   Timer,
   TimerAlert,
   User,
-  Setting
+  Setting,
+  CurrencyExchange
 } from './typedefs'
 
 import resolvers from './resolvers'
@@ -15,6 +16,7 @@ const RootQuery = `
   type RootQuery {
     user(id: String!): User
     currentUser: User
+    currencyExchange(from: String!, to: String!, amount: Float!): CurrencyExchange
   }
 `
 
@@ -64,7 +66,8 @@ export default makeExecutableSchema({
     Timer,
     TimerAlert,
     User,
-    Setting
+    Setting,
+    CurrencyExchange
   ],
   resolvers
 })
