@@ -6,6 +6,7 @@ import TimerAlert from './timerAlert'
 import InventoryItem from './inventoryItem'
 import Mutation from './mutation'
 import Setting from "./setting"
+import CurrencyExchange from "./currencyExchange"
 
 export default {
   RootQuery,
@@ -15,5 +16,6 @@ export default {
   TimerAlert,
   InventoryItem,
   Mutation,
-  Setting
+  Setting,
+  CurrencyExchange
 }
