@@ -35,7 +35,7 @@ export const saveCurrencyExchange = async currencyExchange => {
 export const cachedConvertCurrency = async (from, to, amount) => {
 	const currencyExchange = await getCurrencyExchange(from, to).catch(e => e)
 	if(currencyExchange){
-		if(currencyExchange.date < new Date().toLocateDateString()){
+		if(currencyExchange.date < new Date().toLocaleDateString()){
 			const newCurrencyExchange = await convertCurrency(from, to, amount).catch(e => e)
 			await saveCurrencyExchange(newCurrencyExchange)
 			return newCurrencyExchange
