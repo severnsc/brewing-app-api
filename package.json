@@ -24,8 +24,8 @@
     "brewing-app-logic": "git+https://github.com/severnsc/brewing-app-logic.git",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "connect-mongodb-session": "^2.0.3",
-    "cors": "^2.8.4",
+    "connect-mongodb-session": "^2.0.5",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
@@ -36,9 +36,9 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "twilio": "^3.22.0",
+    "twilio": "^3.24.0",
     "uuid": "^3.3.2",
-    "validator": "^10.8.0"
+    "validator": "^10.9.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
