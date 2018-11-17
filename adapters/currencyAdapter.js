@@ -15,7 +15,7 @@ export const convertCurrency = (from, to, amount) => {
 		to,
 		rate: data.rates[to],
 		result: amount * data.rates[to],
-		date: data.date
+		date: new Date().toLocaleDateString()
 	}))
 	.catch(e => e)
 }
