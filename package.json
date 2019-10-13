@@ -18,7 +18,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "apollo-server-express": "^1.3.6",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bcrypt": "git+https://github.com/kelektiv/node.bcrypt.js.git#master",
     "body-parser": "^1.18.3",
     "brewing-app-logic": "git+https://github.com/severnsc/brewing-app-logic.git",
