@@ -18,7 +18,7 @@
   "dependencies": {
     "apollo-server-express": "^1.3.6",
     "axios": "^0.18.1",
-    "bcrypt": "git+https://github.com/kelektiv/node.bcrypt.js.git#master",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "brewing-app-logic": "git+https://github.com/severnsc/brewing-app-logic.git",
     "chai": "^4.2.0",
@@ -41,6 +41,9 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0"
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-stage-2": "^7.0.0"
   }
 }
