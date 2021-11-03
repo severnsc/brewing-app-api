@@ -37,7 +37,7 @@
     "passport-local": "^1.0.0",
     "twilio": "^3.24.0",
     "uuid": "^3.3.2",
-    "validator": "^10.9.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
